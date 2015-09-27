@@ -19,7 +19,7 @@
   
 ただし、semantic-uiのインストール先は、途中で聞かれるときにsemanticではなくてlib/semanticにする必要あり。  
 それから、lib/semanticにてgulp buildしろとか言われるけど(検証してみた時はそうなっただけなので、もしかしたら修正されているかも)  
-なんかそれだとアレなのでnode_modulesの方のsemantic-uiのディレクトリでgulp buildしてください。  
+なんかそれだとbuildに失敗してうまくいかないのでnode_modulesの方のsemantic-uiのディレクトリでgulp buildしてください。  
 コマンドは以下になります。  
 
 ```:zsh
