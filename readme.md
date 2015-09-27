@@ -1,15 +1,17 @@
 #HarmonyQuartet2
-分かる人のみ使ってください。
+The twitter client written in Node.js(server side) and TypeScript(front end).  
+  
+This version is development snapshot, please use at own risk.  
   
   
-##前提環境
+##Requirements
 * typescript 1.6.2  
-* gulp(最新のもの)  
-* npm(最新のもの)  
-* node.js(最新のもの)  
+* gulp(latest)  
+* npm(latest)  
+* node.js(latest)  
   
   
-##依存関係解決
+##Dependencies
 
 ```zsh:
 % npm install express socket.io serve-static confu ntwitter
@@ -17,22 +19,23 @@
 % ruby buildTS.rb
 ```
   
-ただし、semantic-uiのインストール先は、途中で聞かれるときにsemanticではなくてlib/semanticにする必要あり。  
-それから、lib/semanticにてgulp buildしろとか言われるけど(検証してみた時はそうなっただけなので、もしかしたら修正されているかも)  
-なんかそれだとbuildに失敗してうまくいかないのでnode_modulesの方のsemantic-uiのディレクトリでgulp buildしてください。  
-コマンドは以下になります。  
+###Note
+Installation path of semantic-ui is not default path(semantic/).  
+Please enter "lib/semantic" when you are asked.  
+  
+Install wizard of semantic-ui says `run "gulp build" at /lib/semantic`, though this command wouldn't work.  
+Please run "gulp build" at "node_modules/semantic-ui"  
+(This problem might have been fixed.)  
 
 ```:zsh
 % cd node_modules/semantic-ui  
 % gulp build  
 ```
 
-なにか聞かれても全部Enterで問題無いです  
-  
-ruby buildTS.rbで出てくるエラーは無視して問題無いです。  
+You have only to hit return key if you are asked by gulp wizard.
   
 
-それが終わったら、setting.jsonを作り以下のようにconsumerKey,consumerSecret,accessToken,accessTokenSecretを書き込んでください  
+'ruby buildTS.rb' command may warn some error, but there is no problem, please ignore.  
 
 ```:json
 {
@@ -44,14 +47,15 @@ ruby buildTS.rbで出てくるエラーは無視して問題無いです。
 ```
 
   
-##起動
-`% node app.js`で起動後`localhost:3000`にアクセス。
+##Execute
+1. run `% node app.js`  
+2. access to `localhost:3000`  
   
   
-##免責事項
-バグが多いです  
-何が起きても知りません  
-それから、動くと思っても動かない機能が多いです。  
+##Disclaimer
+This project have many bugs.  
+Please use at own risk.  
+I do not take the responsibility even if any damage occurs.  
   
   
 ##LICENSE
