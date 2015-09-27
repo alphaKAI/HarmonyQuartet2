@@ -1,0 +1,38 @@
+/*
+  The MIT License  
+  Copyright (C) 2015 alphaKAI
+*/
+.selected {
+  background-color: #F5F5F5;
+}
+
+.default {
+  background-color: #FFFFFF;
+}
+
+.columnElement {
+  overflow-y: hidden;
+  
+  border-right: 1px #cccccc solid;
+}
+
+.timeline {
+  overflow-y: scroll;
+}
+
+.tweetElement{
+  padding-bottom: 39px;
+  border-bottom: 1px #cccccc solid;
+}
+
+.twitterToggles{
+  float: right;
+}
+
+.userName{
+  margin: 2px;
+}
+
+.tweetArea{
+  height: 40px;
+}

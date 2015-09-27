@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--
+    The MIT License  
+    Copyright (C) 2015 alphaKAI  
+  -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>HarmonyQuartet UI</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="lib/semantic/dist/semantic.min.css">
+  <script src="lib/semantic/dist/semantic.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/dialog.css">
+  <link rel="stylesheet" type="text/css" href="css/loader.css">
+</head>
+
+<body>
+  
+  <!-- SIDEBAR -->
+  <div class="ui left demo vertical inverted sidebar labeled icon menu">
+    <a class="item" id="ChangeHomeDisplay">
+      <i class="home icon"></i> Home
+    </a>
+    <a class="item" id="ChangeSettingDisplay">
+      <i class="settings icon"></i> Settings
+    </a>
+    <a class="item" id="ChangeBugReportDisplay">
+      <i class="bug icon"></i> Report Bugs
+    </a>
+    <a class="item" id="SignOutHundler">
+      <i class="sign out icon"></i> Sign out
+    </a>
+  </div>
+  <!-- END SIDEBAR -->
+
+  <!-- HOME DISPLAY -->
+  <div class="homeDisplay">
+    <!-- GRID DIV -->
+    <div class="ui three column TLcolumn grid">
+      <!-- COLUMN ELEMENT -->
+      <div class="TLcolumn column two wide columnElement">
+        <button class="ui labeled icon button" onclick="javascript:toggleSidebar();">
+          <i class="sidebar icon"></i>
+          Sidebar
+        </button>
+      </div>
+      <!-- END COLUMN ELEMENT -->
+
+      <!-- COLUMN ELEMENT -->
+      <div class="TLcolumn column six wide columnElement" id="home">
+        <!--{{{-->
+        <div class="timeline">
+        </div>
+        <!--}}}-->
+      </div>
+      <!-- END COLUMN ELEMENT -->
+
+      <!-- COLUMN ELEMENET -->
+      <div class="TLcolumn column four wide columnElement" id="reply">
+        <!--{{{-->
+        <div class="timeline">
+        </div>
+        <!--}}}-->
+      </div>
+      <!-- END COLUMN ELEMENET -->
+
+      <!-- COLUMN ELEMENET -->
+      <div class="TLcolumn column four wide columnElement" id="dm">
+        <!--{{{-->
+        <div class="timeline">
+        </div>
+        <!--}}}-->
+      </div>
+      <!-- END COLUMN ELEMENET -->
+    </div>
+    <!-- END GRID DIV -->
+    <!-- GRID DIV -->
+    <div class="ui two column grid">
+      <div class="column two wide"></div>
+      <div class="column eleven wide tweetArea">
+        <div class="ui form">
+          <div class="field tweetArea">
+            <textarea rows="3" id="textInputArea"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="column two wide tweetArea">
+        <button class="ui massive blue inverted button" id="tweetButton">Tweet</button>
+        <label class="counter">0</label>
+      </div>
+    </div>
+    <!-- END GRID DIV -->
+  </div>
+  <!-- END HOME DISPLAY -->
+
+  <!-- ******************* -->
+
+  <!-- SETTING DISPLAY -->
+  <div class="settingDisplay">
+    <!-- GRID DIV -->
+    <div class="ui two column TLcolumn grid">
+      <!-- COLUMN ELEMENT -->
+      <div class="TLcolumn column two wide columnElement">
+        <button class="ui labeled icon button" onclick="javascript:toggleSidebar();">
+          <i class="sidebar icon"></i>
+          Sidebar
+        </button>
+      </div>
+      <!-- END COLUMN ELEMENT -->
+
+      <!-- COLUMN ELEMENT -->
+      <div class="TLcolumn column fourteen wide columnElement">
+        Here is setting display
+      </div>
+      <!-- END COLUMN ELEMENET -->
+
+    </div>
+    <!-- END GRID DIV -->
+  </div>
+  <!-- END SETTING DISPLAY -->
+
+  <!-- ******************* -->
+
+  <!-- BUG REPORT DISPLAY -->
+  <div class="bugReportDisplay">
+    <!-- GRID DIV -->
+    <div class="ui two column TLcolumn grid">
+      <!-- COLUMN ELEMENT -->
+      <div class="TLcolumn column two wide columnElement">
+        <button class="ui labeled icon button" onclick="javascript:toggleSidebar();">
+          <i class="sidebar icon"></i>
+          Sidebar
+        </button>
+      </div>
+      <!-- END COLUMN ELEMENT -->
+
+      <!-- COLUMN ELEMENT -->
+      <div class="TLcolumn column fourteen wide columnElement">
+        Here is bug report display
+      </div>
+      <!-- END COLUMN ELEMENET -->
+
+    </div>
+    <!-- END GRID DIV -->
+  </div>
+  <!-- END BUG REPORT DISPLAY -->
+
+  <!-- OVERLAY DISPLAY -->
+  <div id="overlayDisplay">  
+    <div id="content">
+      
+    </div>
+  </div>  
+  <div id="overlayBackground"></div>  
+  <div id="loading">
+    <div class="loadingContainer">
+      <div class="loadingContent">
+        <div class="loadingBall"></div>
+        <div class="loadingBall1"></div>
+      </div>
+    </div>
+  </div>
+  <!-- END OVERLAY DISPLAY -->
+
+  <script type="text/javascript" src="js/environments.js"></script>
+  <script type="text/javascript" src="js/tlController.js"></script>
+  <script type="text/javascript" src="js/uiController.js"></script>
+  <script type="text/javascript" src="js/tweetElement.js"></script>
+  <script type="text/javascript" src="js/twitterController.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script type="text/javascript" src="js/socketController.js"></script>
+  
+  <script type="text/javascript" charset="utf-8">
+    /* tl */
+    var env = new Environments();
+
+    var tlStore = new TLStore(env);
+
+    env.tlStore = tlStore;
+
+    /* tlの順番とかその辺も設定可能にしたい */
+    tlStore.add("home");
+    tlStore.add("reply");
+    tlStore.add("dm");
+
+    function deleteAllElement(name){
+      tlStore.deleteAllElement(name);
+    }
+
+    function clickRetweet(tl, id){
+      tlStore.twitterToggleClick("Retweet", tl, id);
+    }
+    
+    function clickFavorite(tl, id){
+      tlStore.twitterToggleClick("Favorite", tl, id);
+    }
+    
+    function clickReply(tl, id){
+      tlStore.twitterToggleClick("Reply", tl, id);
+    }
+    /* ------- */
+
+    /* UI */
+    var ui = new uiController(env);
+    env.uicontroller = ui;
+
+    ui.addDisplay("homeDisplay");
+    ui.addDisplay("settingDisplay");
+    ui.addDisplay("bugReportDisplay")
+
+    ui.activeDisplay("homeDisplay");
+
+    
+    function toggleSidebar(){
+      $('.ui.labeled.icon.sidebar').sidebar('toggle');
+    }
+    /* ------- */
+
+    /* Socket */
+    env.socket = new SocketController(env);
+
+    var twitterController = new TwitterController(env);
+
+    function clickUserIcon(tlName, id){
+      tlStore.clickUserIcon(tlName, id);
+      ui.startLoading();
+    }
+
+    function openUserPage(id){
+      ui.openUserPage(id);
+    }
+
+  </script>
+</body>
+</html>
