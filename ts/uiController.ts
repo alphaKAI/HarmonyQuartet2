@@ -146,7 +146,7 @@ class uiController{
       var status = new TweetElement(utl[i]);
 
       status.text = status.text.replace("\n", "<br>");
-      status.text = status.text.replace(/(http:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
+      status.text = status.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
       var tweetDiv =
           '<div class="item tweetElement">'
         +   '<div class="content">'

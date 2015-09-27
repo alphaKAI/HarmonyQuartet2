@@ -98,7 +98,7 @@ class TL{
 
   insertElement(element: TweetElement){
     element.text = element.text.replace("\n", "<br>");
-    element.text = element.text.replace(/(http:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
+    element.text = element.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
 
     var divElement =  '<div class="item tweetElement" id= "' + this.tlName + String(this.tlLength) + '" >'
                     +   '<div class="content">'
