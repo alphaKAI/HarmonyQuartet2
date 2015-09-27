@@ -12,7 +12,7 @@
 ##依存関係解決
 
 ```zsh:
-% npm install express socket.io serve-static confu
+% npm install express socket.io serve-static confu ntwitter
 % npm install semantic-ui
 % ruby buildTS.rb
 ```
