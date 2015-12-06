@@ -17,7 +17,6 @@ app.get('/', function(req, res){
 
 var twitter = require("ntwitter");
 
-
 var consumerKeys = confu("setting.json");
 var twit = new twitter(consumerKeys);
 

@@ -112,6 +112,34 @@ class uiController{
     }
   }
 
+  buildTweetDiv(status: TweetElement){
+    status.text = status.text.replace("\n", "<br>");
+    status.text = status.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
+    
+    return
+        '<div class="item tweetElement">'
+      +   '<div class="content">'
+      +     '<div class="header userName">'
+      +       '<img src="' + status.profile_image_url_https + '" alt= "icon" class="ui avatar image" >'
+      +       status.user["name"] + "(@" + status.user["screen_name"] + ")"
+      +     '</div>'
+      +     status.text
+      +   '</div>'
+      + '</div>';
+  }
+
+  buildUserDiv(user:{[key: string]: string}){
+    return
+        '<div class="item elementDivider userElement">'
+      +   '<div class="content" onclick=javascript:openUserPage("' + user["screen_name"] + '")>'
+      +     '<div class="header userName">'
+      +       '<img src="' + user["profile_image_url_https"] + '" alt= "icon" class="ui avatar image">'
+      +       user["name"] + "(@" + user["screen_name"] + ")"
+      +     '</div>'
+      +   '</div>'
+      + '</div>';
+  }
+
   showUserPage(userData){
     var userPageDiv =
         '<div id="userInfo">'
@@ -144,19 +172,7 @@ class uiController{
     
     for (var i = 0; i < utl.length; i++){
       var status = new TweetElement(utl[i]);
-
-      status.text = status.text.replace("\n", "<br>");
-      status.text = status.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
-      var tweetDiv =
-          '<div class="item tweetElement">'
-        +   '<div class="content">'
-        +     '<div class="header userName">'
-        +       '<img src="' + status.profile_image_url_https + '" alt= "icon" class="ui avatar image" >'
-        +       status.user["name"] + "(@" + status.user["screen_name"] + ")"
-        +     '</div>'
-        +     status.text
-        +   '</div>'
-        + '</div>';
+      var tweetDiv = this.buildTweetDiv(status);
       userPageDiv += tweetDiv;
     }
 
@@ -167,15 +183,7 @@ class uiController{
     var friends = userData["friends"];
     for (var i = 0; i < friends.length; i++){
       var user = friends[i];
-      var userDiv =
-          '<div class="item elementDivider userElement">'
-        +   '<div class="content" onclick=javascript:openUserPage("' + user["screen_name"] + '")>'
-        +     '<div class="header userName">'
-        +       '<img src="' + user["profile_image_url_https"] + '" alt= "icon" class="ui avatar image">'
-        +        user["name"] + "(@" + user["screen_name"] + ")"
-        +     '</div>'
-        +   '</div>'
-        + '</div>';
+      var userDiv = this.buildUserDiv(user);
       userPageDiv += userDiv;
     }
 
@@ -186,15 +194,7 @@ class uiController{
     var followers = userData["followers"];
     for (var i = 0; i < followers.length; i++) {
       var user = followers[i];
-      var userDiv =
-          '<div class="item elementDivider userElement">'
-        +   '<div class="content" onclick=javascript:openUserPage("' + user["screen_name"] + '")>'
-        +     '<div class="header userName">'
-        +       '<img src="' + user["profile_image_url_https"] + '" alt= "icon" class="ui avatar image">'
-        +       user["name"] + "(@" + user["screen_name"] + ")"
-        +     '</div>'
-        +   '</div>'
-        + '</div>';
+      var userDiv = this.buildUserDiv(user);
       userPageDiv += userDiv;
     }
 
