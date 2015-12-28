@@ -183,12 +183,12 @@ export class TLStore{
       _this.tls[_this.currentTL].keyDownReaction(e);
     });
 
-    $(document).on('click', 'div.item', function(event:JQuery){
+    $(document).on('click', 'div.item', function(event:any){
       _this.currentTL = $(this).attr("data-tlClass");
       _this.tls[_this.currentTL].clickReaction($(this));
     });
 
-    $(document).on('click', '.actionButton', function(event:JQuery){
+    $(document).on('click', '.actionButton', function(event:any){
       _this.currentTL = $(this).attr("data-tlClass");
       _this.tls[_this.currentTL].clickActionButton($(this));
     });
@@ -225,10 +225,9 @@ export class TLStore{
 
   getTlsName(){
     var keys:any[] = [];
-    for(var key in this.tls){
-      keys.length++;
-      keys[keys.length - 1] = key;
-    }
+    for(var key in this.tls)
+      keys[keys.length++] = key;
+    
     return keys;
   }
 }

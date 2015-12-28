@@ -50,8 +50,7 @@ export class SocketController{
   }
 
   send(method: string, endPoint: string, params: {[key: string]: string} = {}){
-    this.socket.emit(method, {"endPoint" : endPoint,
-                              "params" : params});
+    this.socket.emit(method, {"endPoint" : endPoint, "params" : params});
   }
 
   getUserData(screen_name: string) {

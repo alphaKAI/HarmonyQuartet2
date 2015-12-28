@@ -254,7 +254,7 @@ export class UIController{
   }
 
   showSearchResult(res: any){
-    console.log(res);
+    res["statuses"] = res["statuses"].reverse;
     for(var status in res["statuses"]){
       status = res["statuses"][status];
       this.ENV.tlStore.insertElement("search", new TweetElement(status));

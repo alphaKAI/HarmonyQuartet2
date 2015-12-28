@@ -94,18 +94,26 @@ io.on('connection', function (socket){
       console.log("---getTimelines---");
       var requestCount = "20";
       twit.get("/direct_messages.json", {"count":requestCount}, function(err, res){
-        for(var status in res){
-          status = res[status];
-          status["user"] = status["sender"];
-          emitToClients("dm", status, session_id);
-        }
+        var sendArray = [];
+        for(var status in res)
+          sendArray[sendArray.length++] = res[status];
+        sendArray.reverse();
+        
+        sendArray.forEach(function(status) {
+            status["user"] = status["sender"];
+            emitToClients("dm", status, session_id);
+          }, this);
       });
 
       twit.get("/statuses/mentions_timeline.json", {"count":requestCount}, function(err, res){
-        for(var status in res){
-          status = res[status];
-          emitToClients("reply", status, session_id);
-        }
+        var sendArray = [];
+        for(var status in res)
+          sendArray[sendArray.length++] = res[status];
+        sendArray.reverse();
+        
+        sendArray.forEach(function(status) {
+            emitToClients("reply", status, session_id);
+          }, this);
       });
 
     } else if(data["endPoint"] == "getUserInfo"){
