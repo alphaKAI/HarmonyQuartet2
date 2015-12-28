@@ -16,7 +16,11 @@ This version is development snapshot, please use at own risk.
 ```zsh:
 % npm install express socket.io serve-static confu ntwitter
 % npm install semantic-ui
-% ruby buildTS.rb
+% cd ts/gulp
+% npm install
+% gulp tsc
+% gulp browserify
+% gulp minify
 ```
   
 ###Note
@@ -35,7 +39,7 @@ Please run "gulp build" at "node_modules/semantic-ui"
 You have only to hit return key if you are asked by gulp wizard.
   
 
-'ruby buildTS.rb' command may warn some error, but there is no problem, please ignore.  
+Currently, HarmonyQuartet2 doesn't support twitter authoraization byself, therefore you should configurate setting.js as follows:  
 
 ```:json
 {
