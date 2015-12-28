@@ -1,12 +1,13 @@
 /// <reference path="lib/jquery.d.ts" />
-/// <reference path="dFiles/environments.d.ts" />
 
 /*
-  The MIT License  
+  The MIT License
   Copyright (C) 2015 alphaKAI
 */
 
-class TwitterController{
+import {Environments} from "./environments";
+
+export class TwitterController{
   private ENV: Environments;
 
   constructor(env: Environments) {
@@ -30,8 +31,8 @@ class TwitterController{
       }
     });
   }
-  
-  update(text: string, in_reply_status_id = null) {
+
+  update(text: string, in_reply_status_id: string = null) {
     var parameters: { [key: string]: string; } = {};
     parameters["status"] = text;
 

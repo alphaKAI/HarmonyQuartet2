@@ -3,8 +3,8 @@
 
 <head>
   <!--
-    The MIT License  
-    Copyright (C) 2015 alphaKAI  
+    The MIT License
+    Copyright (C) 2015 alphaKAI
   -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
@@ -19,7 +19,7 @@
 </head>
 
 <body>
-  
+
   <!-- SIDEBAR -->
   <div class="ui left demo vertical inverted sidebar labeled icon menu">
     <a class="item" id="ChangeHomeDisplay">
@@ -43,7 +43,7 @@
     <div class="ui three column TLcolumn grid">
       <!-- COLUMN ELEMENT -->
       <div class="TLcolumn column two wide columnElement">
-        <button class="ui labeled icon button" onclick="javascript:toggleSidebar();">
+        <button class="ui labeled icon button" id="toggleSidebar">
           <i class="sidebar icon"></i>
           Sidebar
         </button>
@@ -51,7 +51,7 @@
       <!-- END COLUMN ELEMENT -->
 
       <!-- COLUMN ELEMENT -->
-      <div class="TLcolumn column six wide columnElement" id="home">
+      <div class="TLcolumn column four wide columnElement" id="home">
         <!--{{{-->
         <div class="timeline">
         </div>
@@ -69,7 +69,20 @@
       <!-- END COLUMN ELEMENET -->
 
       <!-- COLUMN ELEMENET -->
-      <div class="TLcolumn column four wide columnElement" id="dm">
+      <div class="TLcolumn column three wide columnElement" id="search">
+        <!--{{{-->
+        <div class="search">
+          <input type="text" name="searchText" value="">
+          <input type="button" name="searchButton" value="search" id="searchButton">
+        </div>
+        <div class="timeline">
+        </div>
+        <!--}}}-->
+      </div>
+      <!-- END COLUMN ELEMENET -->
+
+      <!-- COLUMN ELEMENET -->
+      <div class="TLcolumn column three wide columnElement" id="dm">
         <!--{{{-->
         <div class="timeline">
         </div>
@@ -150,12 +163,12 @@
   <!-- END BUG REPORT DISPLAY -->
 
   <!-- OVERLAY DISPLAY -->
-  <div id="overlayDisplay">  
+  <div id="overlayDisplay">
     <div id="content">
-      
+
     </div>
-  </div>  
-  <div id="overlayBackground"></div>  
+  </div>
+  <div id="overlayBackground"></div>
   <div id="loading">
     <div class="loadingContainer">
       <div class="loadingContent">
@@ -166,74 +179,15 @@
   </div>
   <!-- END OVERLAY DISPLAY -->
 
+<!--
   <script type="text/javascript" src="js/environments.js"></script>
   <script type="text/javascript" src="js/tlController.js"></script>
   <script type="text/javascript" src="js/uiController.js"></script>
   <script type="text/javascript" src="js/tweetElement.js"></script>
   <script type="text/javascript" src="js/twitterController.js"></script>
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script type="text/javascript" src="js/socketController.js"></script>
-  
-  <script type="text/javascript" charset="utf-8">
-    /* tl */
-    var env = new Environments();
-
-    var tlStore = new TLStore(env);
-
-    env.tlStore = tlStore;
-
-    /* tlの順番とかその辺も設定可能にしたい */
-    tlStore.add("home");
-    tlStore.add("reply");
-    tlStore.add("dm");
-
-    function deleteAllElement(name){
-      tlStore.deleteAllElement(name);
-    }
-
-    function clickRetweet(tl, id){
-      tlStore.twitterToggleClick("Retweet", tl, id);
-    }
-    
-    function clickFavorite(tl, id){
-      tlStore.twitterToggleClick("Favorite", tl, id);
-    }
-    
-    function clickReply(tl, id){
-      tlStore.twitterToggleClick("Reply", tl, id);
-    }
-    /* ------- */
-
-    /* UI */
-    var ui = new uiController(env);
-    env.uicontroller = ui;
-
-    ui.addDisplay("homeDisplay");
-    ui.addDisplay("settingDisplay");
-    ui.addDisplay("bugReportDisplay")
-
-    ui.activeDisplay("homeDisplay");
-
-    
-    function toggleSidebar(){
-      $('.ui.labeled.icon.sidebar').sidebar('toggle');
-    }
-    /* ------- */
-
-    /* Socket */
-    env.socket = new SocketController(env);
-
-    var twitterController = new TwitterController(env);
-
-    function clickUserIcon(tlName, id){
-      tlStore.clickUserIcon(tlName, id);
-      ui.startLoading();
-    }
-
-    function openUserPage(id){
-      ui.openUserPage(id);
-    }
-
-  </script>
+  <script type="text/javascript" src="js/socketController.js"></script>-->
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script type="text/javascript" src="js/min/bundle.min.js"></script>
 </body>
 </html>

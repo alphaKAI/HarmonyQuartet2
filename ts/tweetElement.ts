@@ -1,8 +1,9 @@
 /*
-  The MIT License  
+  The MIT License
   Copyright (C) 2015 alphaKAI
 */
-class TweetElement{
+
+export class TweetElement{
   kind: string;
   text: string;
   in_reply_to_status_id: string;
@@ -18,7 +19,7 @@ class TweetElement{
   favorited: boolean;
   retweeted: boolean;
 
-  constructor(json: JSON){
+  constructor(json: any){
     this.originalJson = json;
 
     this.user["name"]        = "";
@@ -40,11 +41,11 @@ class TweetElement{
       if(json["source"] != undefined)
         for(var key in this.source)
           this.source[key] = key in json["source"] ? json["source"][key] : "null";
-    
+
       if(json["target"] != undefined)
         for(var key in this.target)
           this.target[key] = key in json["target"] ? json["target"][key] : "null";
-      
+
       if(json["target_object"] != undefined)
         for(var key in this.target_object)
           this.target_object[key] = json["target_object"][key] != undefined ? json["target_object"][key] : "null";
@@ -79,14 +80,14 @@ class TweetElement{
       this.profile_image_url_https = json["user"]["profile_image_url_https"];
     }
 
-    //RT, FAV and mode....
+    //RT, FAV and more....
   }
 
-  getOriginalJson(): JSON{
+  getOriginalJson(): any{
     return this.originalJson;
   }
 
-  getJsonData(parsedJson: JSON, key:string): string{
+  getJsonData(parsedJson: any, key: string): string{
     return parsedJson[key].replace(new RegExp("\"", "g"), "");
   }
 

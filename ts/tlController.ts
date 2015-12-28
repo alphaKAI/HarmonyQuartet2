@@ -1,13 +1,14 @@
 /// <reference path="lib/jquery.d.ts" />
-/// <reference path="dFiles/environments.d.ts" />
-/// <reference path="dFiles/TweetElement.d.ts" />
 
 /*
-  The MIT License  
+  The MIT License
   Copyright (C) 2015 alphaKAI
 */
 
-class TL{
+import {Environments} from "./environments";
+import {TweetElement} from "./tweetElement";
+
+export class TL{
   private tlLength: number;
   private selected: number;
   private selectable: boolean;
@@ -80,7 +81,7 @@ class TL{
             /* 要修正: ロード中にエスケープを押すと、オーバーレイ画面でエスケープを押してもオーバーレイが解除できなくなる */
             alert(this.ENV.loading);//debug
             this.ENV.uicontroller.hideOverlay();
-            
+
           } else if(this.selectable) {
             this.clearSelects();
           }
@@ -88,7 +89,7 @@ class TL{
     }
   }
 
-  setIDAndFocusTextArea(id = null){
+  setIDAndFocusTextArea(id:any = null){
     $("#textInputArea").focus();
     if(id == null)
       $("#textInputArea").val((this.tlName == "dm" ? "D " : "") + "@" + this.tweets[Number(this.selected)].user["screen_name"] + " ");
@@ -100,39 +101,39 @@ class TL{
     element.text = element.text.replace("\n", "<br>");
     element.text = element.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
 
-    var divElement =  '<div class="item tweetElement" id= "' + this.tlName + String(this.tlLength) + '" >'
+    var divElement =  '<div class="item tweetElement" id= "' + this.tlName + "_" + String(this.tlLength) + '" data-tlClass="'+ this.tlName +'">'
                     +   '<div class="content">'
-                    +     '<div class="header userName" onclick=\'javascript:clickUserIcon("' + this.tlName + '", "' + String(this.tlLength) + '")\'>'
+                    +     '<div class="header userName userInfo" data-tlName="'+ this.tlName +'" data-id="'+ String(this.tlLength) +'" >'
                     +       '<img src="' + element.profile_image_url_https + '" alt="icon" class="ui avatar image">'
                     +       element.user["name"] + "(@" + element.user["screen_name"] + ")"
                     +     '</div>'
                     +     element.text
                     +   '</div>'
                     +   '<div class="twitterToggles" >'
-                    +     '<button class="ui inverted red    icon button actionButton" onClick=\'javascript:clickRetweet("'  + this.tlName  + '", "' + String(this.tlLength) + '")\'> <i class="icon retweet" > </i></button>'
-                    +     '<button class="ui inverted yellow icon button actionButton" onClick=\'javascript:clickFavorite("' + this.tlName  + '", "' + String(this.tlLength) + '")\'> <i class="icon star"    > </i></button>'
-                    +     '<button class="ui inverted blue   icon button actionButton" onClick=\'javascript:clickReply("'    + this.tlName  + '", "' + String(this.tlLength) + '")\'> <i class="icon reply"   > </i></button>'
+                    +     '<button class="ui inverted red    icon button actionButton actionRetweet" data-tlName="'+ this.tlName +'" data-id="'+ String(this.tlLength) +'" data-tlClass="'+ this.tlName +'"> <i class="icon retweet" > </i></button>'
+                    +     '<button class="ui inverted yellow icon button actionButton actionFavorite" data-tlName="'+ this.tlName +'" data-id="'+ String(this.tlLength) +'" data-tlClass="'+ this.tlName +'"> <i class="icon star"    > </i></button>'
+                    +     '<button class="ui inverted blue   icon button actionButton actionReply" data-tlName="'+ this.tlName +'" data-id="'+ String(this.tlLength) +'" data-tlClass="'+ this.tlName +'"> <i class="icon reply"   > </i></button>'
                     +   '</div>'
                     + '</div>';
-    
+
     this.tweets[this.tlLength] = element;
-    
+
     var scrollPosition = $("#" + this.tlName + " .timeline").scrollTop();
 
     $("#" + this.tlName + " .timeline").prepend(divElement);
 
     /*
       TLをスクロールしていた場合に、表示位置を固定する
-      ただし、なぜか1pxぐらいずれてスクロールが発生してしまうので修正が必要。        
+      keep scrolled y position
     */
     if (scrollPosition != 0) {
-      var x = document.getElementById(this.tlName + String(this.tlLength)).clientHeight;
+      var x = document.getElementById(this.tlName + "_" + String(this.tlLength)).clientHeight;
       var margin = 2;
-      $("#" + this.tlName + " .timeline").scrollTop(scrollPosition + x + margin * 2 - 4);
+      $("#" + this.tlName + " .timeline").scrollTop(scrollPosition + x + margin * 2 - 4 + 3);
     } else {
       $("#" + this.tlName + " .timeline").scrollTop(0);
     }
-    
+
     this.updatetlLength();
   }
 
@@ -164,8 +165,7 @@ class TL{
   }
 }
 
-
-class TLStore{
+export class TLStore{
   private tls: {[key: string]: TL};
   private currentTL: string = "home";
   private ENV: Environments;
@@ -179,17 +179,17 @@ class TLStore{
 
   registerEventHandler(){
     var _this = this;
-    $(document).on("keydown", function(e) {
-      _this.tls[_this.currentTL].keyDownReaction(e.keyCode);
+    $(document).on("keydown", function(e:any){
+      _this.tls[_this.currentTL].keyDownReaction(e);
     });
 
-    $(document).on('click', 'div.item', function(event) {
-      _this.currentTL = $(this).parent().parent().attr("id");
+    $(document).on('click', 'div.item', function(event:JQuery){
+      _this.currentTL = $(this).attr("data-tlClass");
       _this.tls[_this.currentTL].clickReaction($(this));
     });
 
-    $(document).on('click', '.actionButton', function(event) {
-      _this.currentTL = $(this).parent().parent().parent().parent().attr("id");
+    $(document).on('click', '.actionButton', function(event:JQuery){
+      _this.currentTL = $(this).attr("data-tlClass");
       _this.tls[_this.currentTL].clickActionButton($(this));
     });
   }
@@ -205,12 +205,12 @@ class TLStore{
   insertElement(tlName: string, element: TweetElement){
     this.tls[tlName].insertElement(element);
   }
-  
+
   twitterToggleClick(method: string, tlName: string, id: string) {
     this.tls[tlName].twitterToggleClick(method, id);
   }
 
-  setIDAndFocusTextArea(tlName: string, id = null){
+  setIDAndFocusTextArea(tlName: string, id:any = null){
     if (id == null)
       this.tls[tlName].setIDAndFocusTextArea();
     else
@@ -221,5 +221,14 @@ class TLStore{
     var _id = Number(id);
     var screen_name = this.tls[tlName].tweets[_id].user["screen_name"];
     this.ENV.socket.getUserData(screen_name);
+  }
+
+  getTlsName(){
+    var keys:any[] = [];
+    for(var key in this.tls){
+      keys.length++;
+      keys[keys.length - 1] = key;
+    }
+    return keys;
   }
 }

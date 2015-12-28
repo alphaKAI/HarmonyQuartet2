@@ -1,51 +1,51 @@
 /*
-  The MIT License  
+  The MIT License
   Copyright (C) 2015 alphaKAI
 */
 /* dialog */
 .elementDivider{
   border-bottom: 1px #cccccc solid;
 }
-#overlayDisplay {  
-  -moz-border-radius: 6px;  
+#overlayDisplay {
+  -moz-border-radius: 6px;
   background-color: #ffffff;
-  -webkit-border-radius: 6px;  
-  border: 1px solid #536376;  
-  -webkit-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;  
-  -moz-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;  
-  
-  width: 503px;  
-  height: 480px;
-  position:fixed;  
-  top:100px;  
-  left:45%;  
-  display:none;  
-  z-index:10;  
-  border:2px solid #ffffff;  
-  
-  margin-left:-200px;  
-}  
-/* Lightbox表示時に背景を黒に */  
-#overlayBackground{  
-  display:none;  
-  background:#000000;  
-  opacity:0.7;/*黒地の背景の調整はこの数値で調整*/  
-  filter:alpha(opacity=70);/*黒地の背景の調整はこの数値で調整*/  
-  position:absolute;  
-  top:0px;  
-  left:0px;  
-  min-width:100%;  
-  min-height:100%;  
-  z-index:1;  
-}  
+  -webkit-border-radius: 6px;
+  border: 1px solid #536376;
+  -webkit-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;
+  -moz-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;
+
+  width: 503px;
+  height: 510px;
+  position:fixed;
+  top:100px;
+  left:45%;
+  display:none;
+  z-index:10;
+  border:2px solid #ffffff;
+
+  margin-left:-200px;
+}
+/* Lightbox表示時に背景を黒に */
+#overlayBackground{
+  display:none;
+  background:#000000;
+  opacity:0.7;/*黒地の背景の調整はこの数値で調整*/
+  filter:alpha(opacity=70);/*黒地の背景の調整はこの数値で調整*/
+  position:absolute;
+  top:0px;
+  left:0px;
+  min-width:100%;
+  min-height:100%;
+  z-index:1;
+}
 
 #userInfo{
   width: 500px;
-  height: 400px;
+  height: 200px;
 }
 #userInfoTop{
   width: 498px;
-  height: 170px;
+  height: 200px;
   background-size: cover;
 }
 #userInfoIcon{
@@ -68,7 +68,7 @@
 }
 
 .tabElement{
-  height: 240px;
+  height: 250px;
   overflow: scroll;
 }
 

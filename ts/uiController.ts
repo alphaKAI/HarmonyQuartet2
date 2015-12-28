@@ -1,9 +1,8 @@
 /// <reference path="lib/jquery.d.ts" />
-/// <reference path="dFiles/environments.d.ts" />
-/// <reference path="dFiles/tweetElement.d.ts" />
+/// <reference path="lib/semantic-ui.d.ts" />
 
 /*
-  The MIT License  
+  The MIT License
   Copyright (C) 2015 alphaKAI
 */
 
@@ -13,10 +12,13 @@
   (HTMLを保持して切り替えればいいだけ)
 */
 
-class uiController{
-  private normalColor = "blue";
-  private warnColor = "red";
-  private displays = [];
+import {Environments} from "./environments";
+import {TweetElement} from "./tweetElement";
+
+export class UIController{
+  private normalColor: string = "blue";
+  private warnColor: string = "red";
+  private displays: any[] = [];
   private activeDisplayName: string;
   private ENV: Environments;
   private _following: boolean;
@@ -62,6 +64,10 @@ class uiController{
 
     $("#overlayBackground").click(function() {
       _this.hideOverlay();
+    });
+
+    $("#searchButton").click(function() {
+      _this.searchRequest();
     });
 
     $("#loading").css("display", "none");
@@ -115,9 +121,8 @@ class uiController{
   buildTweetDiv(status: TweetElement){
     status.text = status.text.replace("\n", "<br>");
     status.text = status.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
-    
-    return
-        '<div class="item tweetElement">'
+
+    return '<div class="item tweetElement">'
       +   '<div class="content">'
       +     '<div class="header userName">'
       +       '<img src="' + status.profile_image_url_https + '" alt= "icon" class="ui avatar image" >'
@@ -129,9 +134,8 @@ class uiController{
   }
 
   buildUserDiv(user:{[key: string]: string}){
-    return
-        '<div class="item elementDivider userElement">'
-      +   '<div class="content" onclick=javascript:openUserPage("' + user["screen_name"] + '")>'
+    return '<div class="item elementDivider userElement">'
+      +   '<div class="content userPageOpenToggle" data-user_screen_name="' + user["screen_name"] + '" onclick=javascript:openUserPage("' + user["screen_name"] + '")>'
       +     '<div class="header userName">'
       +       '<img src="' + user["profile_image_url_https"] + '" alt= "icon" class="ui avatar image">'
       +       user["name"] + "(@" + user["screen_name"] + ")"
@@ -140,7 +144,7 @@ class uiController{
       + '</div>';
   }
 
-  showUserPage(userData){
+  showUserPage(userData: any){
     var userPageDiv =
         '<div id="userInfo">'
       +   '<div id="userInfoTop">'
@@ -167,9 +171,9 @@ class uiController{
       +     '</div>'
       +   '</div>'
       +   '<div class="ui tab tabElement active" data-tab="tweets">';
-    
+
     var utl = userData["user_timeline"];
-    
+
     for (var i = 0; i < utl.length; i++){
       var status = new TweetElement(utl[i]);
       var tweetDiv = this.buildTweetDiv(status);
@@ -179,7 +183,7 @@ class uiController{
     userPageDiv +=
       '</div>'
     + '<div class="ui tab tabElement" data-tab="follows">';
-        
+
     var friends = userData["friends"];
     for (var i = 0; i < friends.length; i++){
       var user = friends[i];
@@ -190,7 +194,7 @@ class uiController{
     userPageDiv +=
       '</div>'
     + '<div class="ui tab tabElement" data-tab="followers">';
-     
+
     var followers = userData["followers"];
     for (var i = 0; i < followers.length; i++) {
       var user = followers[i];
@@ -249,6 +253,14 @@ class uiController{
     this.showOverlay();
   }
 
+  showSearchResult(res: any){
+    console.log(res);
+    for(var status in res["statuses"]){
+      status = res["statuses"][status];
+      this.ENV.tlStore.insertElement("search", new TweetElement(status));
+    }
+  }
+
   openUserPage(target: string) {
     this.hideOverlay();
     this.startLoading();
@@ -278,4 +290,22 @@ class uiController{
     $("#overlayDisplay").html();
   }
 
+  searchRequest() {
+    var text = $(':text[name="searchText"]').val();
+    this.ENV.socket.getSearchData(text, { "count": "100" });
+  }
+
+  swapColumn(from: string, to: string) {
+    if (from[0] != "#")
+      from = "#" + from;
+    if (to[0] != "#")
+      to = "#" + to;
+
+    var $from = $(from);
+    var $to = $(to);
+
+    $from.replaceWith('<div id="REPLACE_TMP"></div>');
+    $to.replaceWith($from);
+    $("#REPLACE_TMP").replaceWith($to);
+  }
 }

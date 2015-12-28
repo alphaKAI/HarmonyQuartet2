@@ -1,5 +1,5 @@
 /*
-  The MIT License  
+  The MIT License
   Copyright (C) 2015 alphaKAI
 */
 var app  = require('express')();
@@ -53,7 +53,7 @@ io.on('connection', function (socket){
   var adminID;
 
   newClient(session_id);
-  
+
   twit.stream('user', function(stream){
     stream.on('data', function(data){
       //console.log(data);
@@ -85,6 +85,29 @@ io.on('connection', function (socket){
         adminID = res["screen_name"];
         emitToClients("adminID", {"id":res["screen_name"]}, session_id);
       });
+    } else if(data["endPoint"] == "getSearchData"){
+      twit.get("/search/tweets.json", data["params"], function(err, res){
+        console.log(res);
+        emitToClients("searchData", res, session_id);
+      });
+    } else if(data["endPoint"] == "getTimelines"){
+      console.log("---getTimelines---");
+      var requestCount = "20";
+      twit.get("/direct_messages.json", {"count":requestCount}, function(err, res){
+        for(var status in res){
+          status = res[status];
+          status["user"] = status["sender"];
+          emitToClients("dm", status, session_id);
+        }
+      });
+
+      twit.get("/statuses/mentions_timeline.json", {"count":requestCount}, function(err, res){
+        for(var status in res){
+          status = res[status];
+          emitToClients("reply", status, session_id);
+        }
+      });
+
     } else if(data["endPoint"] == "getUserInfo"){
       var target = data["params"]["screen_name"];
       var returnJson = {};
@@ -96,7 +119,7 @@ io.on('connection', function (socket){
         twit.get("/statuses/user_timeline.json", {"screen_name": target}, function(err, res){
           console.log(res);
           returnJson["user_timeline"] = res;
-          
+
           twit.get("/friends/list.json", {"screen_name": target}, function (err, res){
             console.log(res);
             returnJson["friends"] = res["users"];
@@ -104,7 +127,7 @@ io.on('connection', function (socket){
             twit.get("/followers/list.json", {"screen_name": target}, function (err, res){
               console.log(res);
               returnJson["followers"] = res["users"];
-              
+
               twit.get("/friendships/lookup.json", {"screen_name": target}, function (err, res){
                 console.log(res);
                 returnJson["lookup"] = res[0]["connections"];
