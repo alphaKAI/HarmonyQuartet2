@@ -7,25 +7,26 @@
 */
 
 /*
-  OverLayの表示領域に階層システムを実装
-  A->B->Cとクリックした時に戻ったり進んだり出来るようにする
-  (HTMLを保持して切り替えればいいだけ)
+  Todo:
+    OverLayの表示領域に階層システムを実装
+    A->B->Cとクリックした時に戻ったり進んだり出来るようにする
+    (HTMLを保持して切り替えればいいだけ)
 */
 
 import {Environments} from "./environments";
 import {TweetElement} from "./tweetElement";
 
-export class UIController{
-  private normalColor: string = "blue";
-  private warnColor: string = "red";
-  private displays: any[] = [];
+export class UIController {
+  private normalColor:       string = "blue";
+  private warnColor:         string = "red";
+  private displays:          any[]  = [];
   private activeDisplayName: string;
-  private ENV: Environments;
-  private _following: boolean;
-  private following: boolean;
+  private ENV:               Environments;
+  private _following:        boolean;
+  private following:         boolean;
 
   constructor(env: Environments) {
-    this.ENV = env;
+    this.ENV   = env;
     var _this = this;
 
     //Register events
@@ -42,8 +43,7 @@ export class UIController{
     });
 
     $('#textInputArea').bind('keyup', function() {
-      var thisValueLength = $(this).val().length;
-      _this.updateTextInputArea(thisValueLength);
+      _this.updateTextInputArea($(this).val().length);
     });
 
     //SideBar Handler
@@ -62,19 +62,19 @@ export class UIController{
       $('.ui.labeled.icon.sidebar').sidebar("hide");
     });
 
-    $("#overlayBackground").click(function() {
+    $("#overlayBackground").click(function() { 
       _this.hideOverlay();
     });
 
-    $("#searchButton").click(function() {
+    $("#searchButton").click(function() { 
       _this.searchRequest();
     });
 
     $("#loading").css("display", "none");
   }
 
-  updateTextInputArea(thisValueLength: number){
-    if(thisValueLength > 140) {
+  updateTextInputArea(thisValueLength: number) {
+    if (thisValueLength > 140) {
       $("#tweetButton").removeClass(this.normalColor);
       $("#tweetButton").addClass(this.warnColor);
 
@@ -90,19 +90,18 @@ export class UIController{
     $('.counter').html(String(this.ENV.lastLengthFlag ?  140 - thisValueLength : thisValueLength));
   }
 
-  addDisplay(name: string){
+  addDisplay(name: string) {
     this.displays.push(name);
     $("." + name).css("display", "none");
   }
 
-  activeDisplay(name: string){
+  activeDisplay(name: string) {
     this.activeDisplayName = name;
     $("." + name).css("display", "block");
   }
 
-  changeDisplay(name: string){
+  changeDisplay(name: string) {
     $("." + this.activeDisplayName).css("display", "none");
-
     this.activeDisplay(name);
   }
 
@@ -118,7 +117,7 @@ export class UIController{
     }
   }
 
-  buildTweetDiv(status: TweetElement){
+  buildTweetDiv(status: TweetElement) {
     status.text = status.text.replace("\n", "<br>");
     status.text = status.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
 
@@ -133,7 +132,7 @@ export class UIController{
       + '</div>';
   }
 
-  buildUserDiv(user:{[key: string]: string}){
+  buildUserDiv(user: {[key: string]: string}) {
     return '<div class="item elementDivider userElement">'
       +   '<div class="content userPageOpenToggle" data-user_screen_name="' + user["screen_name"] + '" onclick=javascript:openUserPage("' + user["screen_name"] + '")>'
       +     '<div class="header userName">'
@@ -144,7 +143,7 @@ export class UIController{
       + '</div>';
   }
 
-  showUserPage(userData: any){
+  showUserPage(userData: any) {
     var userPageDiv =
         '<div id="userInfo">'
       +   '<div id="userInfoTop">'
@@ -173,11 +172,8 @@ export class UIController{
       +   '<div class="ui tab tabElement active" data-tab="tweets">';
 
     var utl = userData["user_timeline"];
-
-    for (var i = 0; i < utl.length; i++){
-      var status = new TweetElement(utl[i]);
-      var tweetDiv = this.buildTweetDiv(status);
-      userPageDiv += tweetDiv;
+    for (var i = 0; i < utl.length; i++) {
+      userPageDiv += this.buildTweetDiv(new TweetElement(utl[i]));
     }
 
     userPageDiv +=
@@ -185,10 +181,8 @@ export class UIController{
     + '<div class="ui tab tabElement" data-tab="follows">';
 
     var friends = userData["friends"];
-    for (var i = 0; i < friends.length; i++){
-      var user = friends[i];
-      var userDiv = this.buildUserDiv(user);
-      userPageDiv += userDiv;
+    for (var i = 0; i < friends.length; i++) {
+      userPageDiv += this.buildUserDiv(friends[i]);
     }
 
     userPageDiv +=
@@ -197,9 +191,7 @@ export class UIController{
 
     var followers = userData["followers"];
     for (var i = 0; i < followers.length; i++) {
-      var user = followers[i];
-      var userDiv = this.buildUserDiv(user);
-      userPageDiv += userDiv;
+      userPageDiv += this.buildUserDiv(followers[i]);
     }
 
     userPageDiv +=
@@ -209,23 +201,26 @@ export class UIController{
 
     var connections = userData["lookup"];
     for (var i = 0; i < connections.length; i++) {
-      if (connections[i] == "following")
+      if (connections[i] == "following") {
         this.following = true;
-      else if (connections[i] == "followed_by")
+      } else if (connections[i] == "followed_by") {
         this._following = true;
+      }
     }
 
     $("#overlayDisplay").html(userPageDiv);
 
-    if (this._following)
+    if (this._following) {
       $("#followStatus").html("following you!");
-    else
+    } else {
       $("#followStatus").html("not following you");
+    }
+
     $("#userInfoTop").css("background-image", "url(" + userData["show"]["profile_banner_url"] + ")")
 
     var _this = this;
     $("#followButton").hover(
-      function() {
+      function(){
         if (_this.following) {
           $(this).removeClass("blue");
           $(this).addClass("red");
@@ -240,24 +235,26 @@ export class UIController{
     });
 
     this.followToggle();
+
     $("#followButton").click(function() {
-      if (this.following)
+      if (this.following) {
         this.following = false;
-      else
+      } else{
         this.following = true;
+      }
       this.followToggle();
     });
 
-    $('#userInfoNav .menu .item').tab({});
+    $("#userInfoNav .menu .item").tab({});
 
     this.showOverlay();
   }
 
-  showSearchResult(res: any){
+  showSearchResult(res: any) {
     res["statuses"].reverse();
-    for(var status in res["statuses"]){
-      status = res["statuses"][status];
-      this.ENV.tlStore.insertElement("search", new TweetElement(status));
+
+    for (var status in res["statuses"]) {
+      this.ENV.tlStore.insertElement("search", new TweetElement(res["statuses"][status]));
     }
   }
 
@@ -267,7 +264,7 @@ export class UIController{
     this.ENV.socket.getUserData(target);
   }
 
-  startLoading(){
+  startLoading() {
     this.ENV.loading = true;
     $("#loading").fadeIn(300);
     $('.loadingBall, .loadibgBall1').removeClass('stopLoading');
@@ -291,15 +288,16 @@ export class UIController{
   }
 
   searchRequest() {
-    var text = $(':text[name="searchText"]').val();
-    this.ENV.socket.getSearchData(text, { "count": "100" });
+    this.ENV.socket.getSearchData($(':text[name="searchText"]').val(), { "count": "100" });
   }
 
   swapColumn(from: string, to: string) {
-    if (from[0] != "#")
+    if (from[0] != "#") {
       from = "#" + from;
-    if (to[0] != "#")
+    }
+    if (to[0] != "#") {
       to = "#" + to;
+    }
 
     var $from = $(from);
     var $to = $(to);

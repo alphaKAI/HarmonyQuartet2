@@ -7,15 +7,15 @@ import {UIController} from "./uiController";
 import {SocketController} from "./socketController";
 import {TwitterController} from "./twitterController";
 
-export class ApplicationMain{
-  private env: Environments;
-  private tlStore: TLStore;
-  private ui: UIController;
+export class ApplicationMain {
+  private env:               Environments;
+  private tlStore:           TLStore;
+  private ui:                UIController;
   private twitterController: TwitterController;
 
-  constructor(){
-    this.env     = new Environments();
-    this.tlStore = new TLStore(this.env);
+  constructor() {
+    this.env               = new Environments();
+    this.tlStore           = new TLStore(this.env);
     this.env.tlStore       = this.tlStore;
     this.ui                = new UIController(this.env);
     this.env.uicontroller  = this.ui;
@@ -37,46 +37,33 @@ export class ApplicationMain{
     this.registerEventHundler();
   }
 
-  private registerEventHundler(){
-    var _this = this;
+  private registerEventHundler() {
+    var _this:any = this;
 
-    $(document).on("click", "#toggleSidebar", function(event){
-      $(".ui.labeled.icon.sidebar").sidebar("toggle");
+    $(document).on("click", "#toggleSidebar", function(event) {
+      $(".ui.labeled.icon.sidebar").sidebar("toggle")
     });
 
-    $(document).on("click", ".userPageOpenToggle", function(event){
-      var id = $(this).attr("data-user_screen_name");
-
-      _this.ui.openUserPage(id);
+    $(document).on("click", ".userPageOpenToggle", function(event) { 
+      _this.ui.openUserPage($(this).attr("data-user_screen_name"))
     });
 
-    $(document).on("click", ".userInfo", function(event){
-      var tlName = $(this).attr("data-tlName");
-      var id     = $(this).attr("data-id");
-
-      _this.tlStore.clickUserIcon(tlName, id);
+    $(document).on("click", ".userInfo", function(event) {
+      _this.tlStore.clickUserIcon($(this).attr("data-tlName"), $(this).attr("data-id"));
       _this.ui.startLoading();
     });
 
-    $(document).on("click", ".actionRetweet", function(event){
-      var tl = $(this).attr("data-tlName");
-      var id = $(this).attr("data-id");
-
-      _this.tlStore.twitterToggleClick("Retweet", tl, id);
+    $(document).on("click", ".actionRetweet", function(event) {
+      _this.tlStore.twitterToggleClick("Retweet", $(this).attr("data-tlName"), $(this).attr("data-id"))
     });
 
-    $(document).on("click", ".actionFavorite", function(event){
-      var tl = $(this).attr("data-tlName");
-      var id = $(this).attr("data-id");
-
-      _this.tlStore.twitterToggleClick("Favorite", tl, id);
+    $(document).on("click", ".actionFavorite", function(event) {
+      console.log($(this));
+      _this.tlStore.twitterToggleClick("Favorite", $(this).attr("data-tlName"), $(this).attr("data-id"))
     });
 
-    $(document).on("click", ".actionReply", function(event){
-      var tl = $(this).attr("data-tlName");
-      var id = $(this).attr("data-id");
-
-      _this.tlStore.twitterToggleClick("Reply", tl, id);
+    $(document).on("click", ".actionReply", function(event) {
+      _this.tlStore.twitterToggleClick("Reply", $(this).attr("data-tlName"), $(this).attr("data-id"))
     });
   }
 }
