@@ -161,7 +161,7 @@ export class UIController{
       +   '<div id="userInfoNav">'
       +     '<div class="ui secondary menu">'
       +       '<a class="item active" data-tab="tweets"> Tweets </a>'
-      +       '<a class="item" data-tab="follows"> Follows </a>'
+      +       '<a class="item" data-tab="follows"> Following </a>'
       +       '<a class="item" data-tab="followers"> Followers </a>'
       +       '<div id="ui inverted followButtonDiv">'
       +         '<button class="ui button inverted blue" id="followButton">'
@@ -254,7 +254,7 @@ export class UIController{
   }
 
   showSearchResult(res: any){
-    res["statuses"] = res["statuses"].reverse;
+    res["statuses"].reverse();
     for(var status in res["statuses"]){
       status = res["statuses"][status];
       this.ENV.tlStore.insertElement("search", new TweetElement(status));
