@@ -11,7 +11,7 @@ import {TweetElement} from "./tweetElement";
 export class TL {
   private tlLength:   number;
   private selected:   number;
-  private selectable: boolean;
+  private selectable: boolean = false;
   private tlName:     string;
   private waitFlag:   boolean;
   public tweets:      { [key: number]: TweetElement } = {};
@@ -34,16 +34,19 @@ export class TL {
 
   toggleSelect(n: number) {
     if (n != this.selected) {
-      $("#" + this.tlName + String(this.selected)).removeClass("selected");
-      $("#" + this.tlName + String(n)).addClass("selected");
-      this.selected = n;
+      $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
+      $("#" + this.tlName + "_" + String(n)).addClass("selected");
+      
+      this.selected   = n;
+      this.selectable = true;
     } else if (n == this.selected) {
       this.clearSelects();
+      this.selectable = false;
     }
   }
 
   clearSelects() {
-    $("#" + this.tlName + String(this.selected)).removeClass("selected");
+    $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
     this.selectable = false;
     this.selected   = null;
     this.ENV.in_reply_to_status_id = null;
@@ -52,7 +55,7 @@ export class TL {
   clickReaction(jqThis: JQuery) {
     if (!this.waitFlag) {
       this.selectable = true;
-      this.toggleSelect(parseInt(jqThis.attr("id").split(this.tlName)[1]));
+      this.toggleSelect(parseInt(jqThis.attr("id").split("_")[1]));
     } else {
       this.waitFlag = false;
     }
@@ -65,15 +68,16 @@ export class TL {
           if (this.selected != this.tlLength - 1) {
             this.toggleSelect(this.selected + 1);
           }
-        break;
+          break;
         case 40://Down key
           if (this.selected != 0) {
             this.toggleSelect(this.selected - 1);
           }
+          break;
         case 13://Enter key
           this.ENV.in_reply_to_status_id = this.tweets[this.selected].id_str;
           this.setIDAndFocusTextArea();
-        break;
+          break;
         case 27://Escape key
           //close overlay display if overlay display is being opened
           if (this.ENV.overLayOpen) {
@@ -81,6 +85,7 @@ export class TL {
           } else if (this.selectable) {
             this.clearSelects();
           }
+          break;
       }
     }
   }
@@ -181,16 +186,16 @@ export class TLStore {
   registerEventHandler() {
     var _this = this;
 
-    $(document).on("keydown", function(e:any) {
-      _this.tls[_this.currentTL].keyDownReaction(e);
+    $(document).on("keydown", function(event: JQueryEventObject) {
+      _this.tls[_this.currentTL].keyDownReaction(event.keyCode);
     });
 
-    $(document).on("click", "div.item", function(event:any) {
+    $(document).on("click", "div.item", function(event: JQueryEventObject) {
       _this.currentTL = $(this).attr("data-tlName");
       _this.tls[_this.currentTL].clickReaction($(this));
     });
 
-    $(document).on("click", ".actionButton", function(event:any) {
+    $(document).on("click", ".actionButton", function(event: JQueryEventObject) {
       _this.currentTL = $(this).attr("data-tlName");
       _this.tls[_this.currentTL].clickActionButton($(this));
     });
