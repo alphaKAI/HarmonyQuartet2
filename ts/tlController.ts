@@ -116,9 +116,24 @@ export class TL {
       + element.text
       + '</div>'
       + '<div class="twitterToggles" >';
+    //このTLがDMである場合、RTとFavのボタンは要らない
     if (this.tlName != "dm") {
-      divElement += '<button class="ui inverted red icon button actionButton actionRetweet" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon retweet" > </i></button>'
-                 + '<button class="ui inverted orange icon button actionButton actionFavorite" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon star"    > </i></button>'
+      //追加するツイートがユーザーのものでない場合かつ鍵垢によるものでない場合、RTボタンを表示
+      //何故か鍵垢にたいするフィルタがうまくはたらかない
+      if (this.ENV.adminID != element.user["screen_name"] && element._protected != true) {
+        divElement += '<button class="ui inverted red icon button actionButton actionRetweet ';
+        //追加するツイートがすでにRTされていた場合、それを反映する
+        if (element.retweeted == true) {
+          divElement += "active";
+        }
+        divElement += '" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon retweet" > </i></button>';
+      }
+      divElement += '<button class="ui inverted orange icon button actionButton actionFavorite ';
+      //追加するツイートがすでにFavられていたばあい、それを反映する
+      if (element.favorited == true) {
+        divElement += "active";
+      }
+      divElement += '" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon star"    > </i></button>';
     }
     divElement += '<button class="ui inverted blue icon button actionButton actionReply" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon reply"   > </i></button>';
     if (this.ENV.adminID == element.user["screen_name"]) {

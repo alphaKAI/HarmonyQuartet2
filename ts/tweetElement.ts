@@ -91,11 +91,14 @@ export class TweetElement {
       this.in_reply_to_status_id = this.getJsonData(json, "id_str");
       this.text = json["text"];
       
-      if (json["user"] != undefined) {
-        this._protected = json["user"]["protected"] == "true" ? true : false;
-      }
+      // ‚¨‚©‚µ‚¢
+      this._protected = json["protected"];
         
       this.profile_image_url_https = json["user"]["profile_image_url_https"];
+
+      this.retweeted = json["retweeted"];
+      this.favorited = json["favorited"];
+      
     }
 
     //RT, FAV and more....
