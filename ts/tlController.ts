@@ -117,12 +117,15 @@ export class TL {
       + '</div>'
       + '<div class="twitterToggles" >';
     if (this.tlName != "dm") {
-      divElement += '<button class="ui inverted red    icon button actionButton actionRetweet" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon retweet" > </i></button>'
-        + '<button class="ui inverted yellow icon button actionButton actionFavorite" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon star"    > </i></button>'
+      divElement += '<button class="ui inverted red icon button actionButton actionRetweet" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon retweet" > </i></button>'
+                 + '<button class="ui inverted orange icon button actionButton actionFavorite" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon star"    > </i></button>'
     }
-    divElement += '<button class="ui inverted blue   icon button actionButton actionReply" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon reply"   > </i></button>'
-      + '</div>'
-      + '</div>';
+    divElement += '<button class="ui inverted blue icon button actionButton actionReply" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon reply"   > </i></button>';
+    if (this.ENV.adminID == element.user["screen_name"]) {
+      divElement += '<button class="ui inverted green icon button actionButton actionDestroy" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon trash" > </i></button>';
+    }
+    divElement += '</div>'
+                + '</div>';
 
     this.tweets[this.tlLength] = element;
 
@@ -146,7 +149,7 @@ export class TL {
   }
 
   deleteElement(id: number) {
-    $("#" + this.tlName + String(id)).css("display", "none");
+    $("#" + this.tlName + "_" + String(id)).css("display", "none");
   }
 
   deleteAllElement() {
@@ -154,10 +157,17 @@ export class TL {
       this.deleteElement(i);
     }
   }
-
+  
   twitterToggleClick(method: string, id: string) {
     if (method == "Retweet") {
-      this.ENV.socket.send("POST", "/statuses/retweet/" + this.tweets[Number(id)].id_str + ".json", { "id": this.tweets[Number(id)].id_str });
+      if (this.tweets[Number(id)].retweeted == false) {
+        this.ENV.socket.send("POST", "/statuses/retweet/" + this.tweets[Number(id)].id_str + ".json", { "id": this.tweets[Number(id)].id_str });
+        this.tweets[Number(id)].retweeted = true;
+      } else if (this.tweets[Number(id)].retweeted == true) {
+        this.ENV.socket.send("POST", "/statuses/destroy/" + this.tweets[Number(id)].id_str + ".json", { "id": this.tweets[Number(id)].id_str });
+        this.deleteElement(Number(id));
+        this.tweets[Number(id)].retweeted = false;
+      }
     } else if (method == "Favorite") {
       if (this.tweets[Number(id)].favorited == false) {
         this.ENV.socket.send("POST", "/favorites/create.json", { "id": this.tweets[Number(id)].id_str });
@@ -169,6 +179,14 @@ export class TL {
     } else if (method == "Reply") {
       this.setIDAndFocusTextArea(Number(id));
       this.ENV.in_reply_to_status_id = this.tweets[Number(id)].in_reply_to_status_id;
+    } else if (method == "Destroy") {
+      if (this.tlName != "dm") {
+        this.ENV.socket.send("POST", "/statuses/destroy/" + this.tweets[Number(id)].id_str + ".json", { "id": this.tweets[Number(id)].id_str });
+      } else if (this.tlName == "dm") {
+        this.ENV.socket.send("POST", "/direct_messages/destroy.json", { "id": this.tweets[Number(id)].id_str });
+      }
+
+      this.deleteElement(Number(id));
     }
   }
 }

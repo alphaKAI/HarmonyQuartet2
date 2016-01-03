@@ -41,11 +41,11 @@ export class ApplicationMain {
     var _this:any = this;
 
     $(document).on("click", "#toggleSidebar", function(event) {
-      $(".ui.labeled.icon.sidebar").sidebar("toggle")
+      $(".ui.labeled.icon.sidebar").sidebar("toggle");
     });
 
     $(document).on("click", ".userPageOpenToggle", function(event) { 
-      _this.ui.openUserPage($(this).attr("data-user_screen_name"))
+      _this.ui.openUserPage($(this).attr("data-user_screen_name"));
     });
 
     $(document).on("click", ".userInfo", function(event) {
@@ -58,12 +58,15 @@ export class ApplicationMain {
     });
 
     $(document).on("click", ".actionFavorite", function(event) {
-      console.log($(this));
-      _this.tlStore.twitterToggleClick("Favorite", $(this).attr("data-tlName"), $(this).attr("data-id"))
+      _this.tlStore.twitterToggleClick("Favorite", $(this).attr("data-tlName"), $(this).attr("data-id"));
     });
 
     $(document).on("click", ".actionReply", function(event) {
-      _this.tlStore.twitterToggleClick("Reply", $(this).attr("data-tlName"), $(this).attr("data-id"))
+      _this.tlStore.twitterToggleClick("Reply", $(this).attr("data-tlName"), $(this).attr("data-id"));
+    });
+
+    $(document).on("click", ".actionDestroy", function (event) {
+      _this.tlStore.twitterToggleClick("Destroy", $(this).attr("data-tlName"), $(this).attr("data-id"));
     });
   }
 }
