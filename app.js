@@ -117,9 +117,6 @@ io.on('connection', function (socket) {
           }
           
           dmSendArray.sort(function (_a, _b) {
-            console.log("_a : " + _a);
-            console.log("_b : " + _b);
-            
             var a = createdAtToDate(_a),
                 b = createdAtToDate(_b);
             
