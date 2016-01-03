@@ -33,13 +33,13 @@ export class UIController {
     //Initialize
     $(function() {
       $(".TLcolumn").css("height", String($(window).height() - 39 - 60) + "px");
-      $(".timeline").css("height", String($(window).height() - 39 - 105) + "px");
+      $(".timeline").css("height", String($(window).height() - 39 - 110) + "px");
     });
 
     //resize handler
     $(window).resize(function() {
       $(".TLcolumn").css("height", String($(window).height() - 39 - 60) + "px");
-      $(".timeline").css("height", String($(window).height() - 39 - 105) + "px");
+      $(".timeline").css("height", String($(window).height() - 39 - 110) + "px");
     });
 
     $('#textInputArea').bind('keyup', function() {
