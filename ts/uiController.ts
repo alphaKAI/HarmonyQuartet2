@@ -117,6 +117,12 @@ export class UIController {
     }
   }
 
+
+  //Dialog
+  /*
+    Todo:
+      Dialogを選択した時に背景が切り替わらないのでなんとかして実装する。
+  */
   buildTweetDiv(status: TweetElement) {
     status.text = status.text.replace("\n", "<br>");
     status.text = status.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");

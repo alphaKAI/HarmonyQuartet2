@@ -82,13 +82,13 @@ io.on('connection', function(socket) {
     if (data["endPoint"] == "getAdminID") {
       console.log("getAdminID");
       twit.get("/account/verify_credentials.json", {}, function(err, res) {
-        console.log(res);
+        //console.log(res);
         adminID = res["screen_name"];
         emitToClients("adminID", { "id":res["screen_name"] }, session_id);
       });
     } else if (data["endPoint"] == "getSearchData") {
       twit.get("/search/tweets.json", data["params"], function(err, res) {
-        console.log(res);
+        //console.log(res);
         emitToClients("searchData", res, session_id);
       });
     } else if (data["endPoint"] == "getTimelines") {
@@ -128,26 +128,26 @@ io.on('connection', function(socket) {
       var returnJson = {};
 
       twit.get("/users/show.json", { "screen_name": target }, function(err, res) {
-        console.log(res);
+        //console.log(res);
         returnJson["show"] = res;
 
         twit.get("/statuses/user_timeline.json", { "screen_name": target }, function(err, res) {
-          console.log(res);
+          //console.log(res);
           returnJson["user_timeline"] = res;
 
           twit.get("/friends/list.json", { "screen_name": target }, function(err, res) {
-            console.log(res);
+            //console.log(res);
             returnJson["friends"] = res["users"];
 
             twit.get("/followers/list.json", { "screen_name": target }, function(err, res) {
-              console.log(res);
+              //console.log(res);
               returnJson["followers"] = res["users"];
 
               twit.get("/friendships/lookup.json", { "screen_name": target }, function(err, res) {
-                console.log(res);
+                //console.log(res);
                 returnJson["lookup"] = res[0]["connections"];
 
-                console.log(returnJson);
+                //console.log(returnJson);
                 emitToClients("userInfo", returnJson, session_id);
               });
             });
