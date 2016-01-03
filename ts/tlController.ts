@@ -37,7 +37,7 @@ export class TL {
       $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
       $("#" + this.tlName + "_" + String(n)).addClass("selected");
 
-      this.selected = n;
+      this.selected   = n;
       this.selectable = true;
     } else if (n == this.selected) {
       this.clearSelects();
@@ -48,7 +48,7 @@ export class TL {
   clearSelects() {
     $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
     this.selectable = false;
-    this.selected = null;
+    this.selected   = null;
     this.ENV.in_reply_to_status_id = null;
   }
 
@@ -108,14 +108,14 @@ export class TL {
     element.text = element.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
 
     var divElement = '<div class="item tweetElement" id= "' + this.tlName + "_" + String(this.tlLength) + '" data-tlName="' + this.tlName + '">'
-      + '<div class="content">'
-      + '<div class="header userName userInfo" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" >'
-      + '<img src="' + element.profile_image_url_https + '" alt="icon" class="ui avatar image">'
-      + element.user["name"] + "(@" + element.user["screen_name"] + ")"
-      + '</div>'
-      + element.text
-      + '</div>'
-      + '<div class="twitterToggles" >';
+                   +  '<div class="content">'
+                   +    '<div class="header userName userInfo" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" >'
+                   +      '<img src="' + element.profile_image_url_https + '" alt="icon" class="ui avatar image">'
+                   +        element.user["name"] + "(@" + element.user["screen_name"] + ")"
+                   +    '</div>'
+                   +    element.text
+                   +  '</div>'
+                   +  '<div class="twitterToggles" >';
     //このTLがDMである場合、RTとFavのボタンは要らない
     if (this.tlName != "dm") {
       //追加するツイートがユーザーのものでない場合かつ鍵垢によるものでない場合、RTボタンを表示
@@ -207,9 +207,9 @@ export class TL {
 }
 
 export class TLStore {
-  private tls: { [key: string]: TL };
+  private tls:       { [key: string]: TL };
   private currentTL: string = "home";
-  private ENV: Environments;
+  private ENV:       Environments;
 
   constructor(env: Environments) {
     this.ENV = env;

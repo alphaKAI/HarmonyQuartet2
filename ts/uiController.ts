@@ -11,6 +11,9 @@
     OverLayの表示領域に階層システムを実装
     A->B->Cとクリックした時に戻ったり進んだり出来るようにする
     (HTMLを保持して切り替えればいいだけ)
+    
+  Todo:
+    会話スレッドの表示を出来るようにする(オーバーレイでいいかな)
 */
 
 import {Environments} from "./environments";
@@ -42,7 +45,7 @@ export class UIController {
       $(".timeline").css("height", String($(window).height() - 39 - 110) + "px");
     });
 
-    $('#textInputArea').bind('keyup', function() {
+    $('#textInputArea').on('keypress keyup', function() {
       _this.updateTextInputArea($(this).val().length);
     });
 
@@ -87,6 +90,7 @@ export class UIController {
     }
 
     //Todo: 設定で残り文字数を表示するか文字数を表示するかの切り替えを出来るようにする
+    //Todo: 文字数のカウントを非同期的にしたい
     $('.counter').html(String(this.ENV.lastLengthFlag ?  140 - thisValueLength : thisValueLength));
   }
 

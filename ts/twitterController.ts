@@ -10,7 +10,7 @@ import {Environments} from "./environments";
 export class TwitterController {
   private ENV: Environments;
 
-  constructor(env: Environments) {
+  constructor (env: Environments) {
     this.ENV = env;
     this.registerEventHandler();
   }
