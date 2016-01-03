@@ -29,6 +29,7 @@
 .tweetElement{
   padding-bottom: 39px;
   border-bottom: 1px #cccccc solid;
+  word-wrap:break-word;
 }
 
 .twitterToggles{

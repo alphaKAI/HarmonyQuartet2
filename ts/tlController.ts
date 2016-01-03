@@ -9,16 +9,16 @@ import {Environments} from "./environments";
 import {TweetElement} from "./tweetElement";
 
 export class TL {
-  private tlLength:   number;
-  private selected:   number;
+  private tlLength: number;
+  private selected: number;
   private selectable: boolean = false;
-  private tlName:     string;
-  private waitFlag:   boolean;
-  public tweets:      { [key: number]: TweetElement } = {};
-  private ENV:        Environments;
+  private tlName: string;
+  private waitFlag: boolean;
+  public tweets: { [key: number]: TweetElement } = {};
+  private ENV: Environments;
 
   constructor(arg: string, env: Environments) {
-    this.ENV    = env;
+    this.ENV = env;
     this.tlName = arg;
     this.updatetlLength();
   }
@@ -36,8 +36,8 @@ export class TL {
     if (n != this.selected) {
       $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
       $("#" + this.tlName + "_" + String(n)).addClass("selected");
-      
-      this.selected   = n;
+
+      this.selected = n;
       this.selectable = true;
     } else if (n == this.selected) {
       this.clearSelects();
@@ -48,7 +48,7 @@ export class TL {
   clearSelects() {
     $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
     this.selectable = false;
-    this.selected   = null;
+    this.selected = null;
     this.ENV.in_reply_to_status_id = null;
   }
 
@@ -90,9 +90,9 @@ export class TL {
     }
   }
 
-  setIDAndFocusTextArea(id:any = null) {
+  setIDAndFocusTextArea(id: any = null) {
     $("#textInputArea").focus();
-    
+
     if (id == null) {
       $("#textInputArea").val((this.tlName == "dm" ? "D " : "") + "@" + this.tweets[Number(this.selected)].user["screen_name"] + " ");
     } else {
@@ -107,20 +107,22 @@ export class TL {
     element.text = element.text.replace("\n", "<br>");
     element.text = element.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
 
-    var divElement =  '<div class="item tweetElement" id= "' + this.tlName + "_" + String(this.tlLength) + '" data-tlName="'+ this.tlName +'">'
-                    +   '<div class="content">'
-                    +     '<div class="header userName userInfo" data-tlName="'+ this.tlName +'" data-id="'+ String(this.tlLength) +'" >'
-                    +       '<img src="' + element.profile_image_url_https + '" alt="icon" class="ui avatar image">'
-                    +       element.user["name"] + "(@" + element.user["screen_name"] + ")"
-                    +     '</div>'
-                    +     element.text
-                    +   '</div>'
-                    +   '<div class="twitterToggles" >'
-                    +     '<button class="ui inverted red    icon button actionButton actionRetweet" data-tlName="'+ this.tlName +'" data-id="'+ String(this.tlLength) +'" data-tlName="'+ this.tlName +'"> <i class="icon retweet" > </i></button>'
-                    +     '<button class="ui inverted yellow icon button actionButton actionFavorite" data-tlName="'+ this.tlName +'" data-id="'+ String(this.tlLength) +'" data-tlName="'+ this.tlName +'"> <i class="icon star"    > </i></button>'
-                    +     '<button class="ui inverted blue   icon button actionButton actionReply" data-tlName="'+ this.tlName +'" data-id="'+ String(this.tlLength) +'" data-tlName="'+ this.tlName +'"> <i class="icon reply"   > </i></button>'
-                    +   '</div>'
-                    + '</div>';
+    var divElement = '<div class="item tweetElement" id= "' + this.tlName + "_" + String(this.tlLength) + '" data-tlName="' + this.tlName + '">'
+      + '<div class="content">'
+      + '<div class="header userName userInfo" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" >'
+      + '<img src="' + element.profile_image_url_https + '" alt="icon" class="ui avatar image">'
+      + element.user["name"] + "(@" + element.user["screen_name"] + ")"
+      + '</div>'
+      + element.text
+      + '</div>';
+    if (element.kind != "dm") {
+      divElement += '<div class="twitterToggles" >'
+      + '<button class="ui inverted red    icon button actionButton actionRetweet" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon retweet" > </i></button>'
+      + '<button class="ui inverted yellow icon button actionButton actionFavorite" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon star"    > </i></button>'
+      + '<button class="ui inverted blue   icon button actionButton actionReply" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon reply"   > </i></button>'
+      + '</div>'
+    }
+    divElement += '</div>';
 
     this.tweets[this.tlLength] = element;
 
@@ -133,7 +135,7 @@ export class TL {
       keep scrolled y position
     */
     if (scrollPosition != 0) {
-      var x      = document.getElementById(this.tlName + "_" + String(this.tlLength)).clientHeight;
+      var x = document.getElementById(this.tlName + "_" + String(this.tlLength)).clientHeight;
       var margin = 2;
       $("#" + this.tlName + " .timeline").scrollTop(scrollPosition + x + margin * 2 - 4 + 3);
     } else {
@@ -172,9 +174,9 @@ export class TL {
 }
 
 export class TLStore {
-  private tls:       {[key: string]: TL};
+  private tls: { [key: string]: TL };
   private currentTL: string = "home";
-  private ENV:       Environments;
+  private ENV: Environments;
 
   constructor(env: Environments) {
     this.ENV = env;
@@ -186,16 +188,16 @@ export class TLStore {
   registerEventHandler() {
     var _this = this;
 
-    $(document).on("keydown", function(event: JQueryEventObject) {
+    $(document).on("keydown", function (event: JQueryEventObject) {
       _this.tls[_this.currentTL].keyDownReaction(event.keyCode);
     });
 
-    $(document).on("click", "div.item", function(event: JQueryEventObject) {
+    $(document).on("click", "div.item", function (event: JQueryEventObject) {
       _this.currentTL = $(this).attr("data-tlName");
       _this.tls[_this.currentTL].clickReaction($(this));
     });
 
-    $(document).on("click", ".actionButton", function(event: JQueryEventObject) {
+    $(document).on("click", ".actionButton", function (event: JQueryEventObject) {
       _this.currentTL = $(this).attr("data-tlName");
       _this.tls[_this.currentTL].clickActionButton($(this));
     });
@@ -217,7 +219,7 @@ export class TLStore {
     this.tls[tlName].twitterToggleClick(method, id);
   }
 
-  setIDAndFocusTextArea(tlName: string, id:any = null) {
+  setIDAndFocusTextArea(tlName: string, id: any = null) {
     if (id == null) {
       this.tls[tlName].setIDAndFocusTextArea();
     } else {
@@ -230,11 +232,11 @@ export class TLStore {
   }
 
   getTlsName() {
-    var keys:any[] = [];
+    var keys: any[] = [];
     for (var key in this.tls) {
       keys[keys.length++] = key;
     }
-    
+
     return keys;
   }
 }

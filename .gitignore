@@ -6,3 +6,10 @@ filelen.rb
 js
 node_modules
 lib/semantic
+.ntvs_analysis.dat
+.vs/
+HarmonyQuartet2.njsproj
+.ntvs_analysis.dat.tmp
+HarmonyQuartet2.sln
+bin
+obj
