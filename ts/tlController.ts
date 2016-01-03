@@ -9,16 +9,16 @@ import {Environments} from "./environments";
 import {TweetElement} from "./tweetElement";
 
 export class TL {
-  private tlLength: number;
-  private selected: number;
+  private tlLength:   number;
+  private selected:   number;
   private selectable: boolean = false;
-  private tlName: string;
-  private waitFlag: boolean;
-  public tweets: { [key: number]: TweetElement } = {};
-  private ENV: Environments;
+  private tlName:     string;
+  private waitFlag:   boolean;
+  public tweets:      { [key: number]: TweetElement } = {};
+  private ENV:        Environments;
 
   constructor(arg: string, env: Environments) {
-    this.ENV = env;
+    this.ENV    = env;
     this.tlName = arg;
     this.updatetlLength();
   }
@@ -114,15 +114,15 @@ export class TL {
       + element.user["name"] + "(@" + element.user["screen_name"] + ")"
       + '</div>'
       + element.text
-      + '</div>';
-    if (element.kind != "dm") {
-      divElement += '<div class="twitterToggles" >'
-      + '<button class="ui inverted red    icon button actionButton actionRetweet" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon retweet" > </i></button>'
-      + '<button class="ui inverted yellow icon button actionButton actionFavorite" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon star"    > </i></button>'
-      + '<button class="ui inverted blue   icon button actionButton actionReply" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon reply"   > </i></button>'
       + '</div>'
+      + '<div class="twitterToggles" >';
+    if (this.tlName != "dm") {
+      divElement += '<button class="ui inverted red    icon button actionButton actionRetweet" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon retweet" > </i></button>'
+        + '<button class="ui inverted yellow icon button actionButton actionFavorite" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon star"    > </i></button>'
     }
-    divElement += '</div>';
+    divElement += '<button class="ui inverted blue   icon button actionButton actionReply" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon reply"   > </i></button>'
+      + '</div>'
+      + '</div>';
 
     this.tweets[this.tlLength] = element;
 

@@ -32,14 +32,14 @@ export class UIController {
     //Register events
     //Initialize
     $(function() {
-      $(".TLcolumn").css("height", String($(window).height() - 39 - 40) + "px");
-      $(".timeline").css("height", String($(window).height() - 39 - 40) + "px");
+      $(".TLcolumn").css("height", String($(window).height() - 39 - 60) + "px");
+      $(".timeline").css("height", String($(window).height() - 39 - 105) + "px");
     });
 
     //resize handler
     $(window).resize(function() {
-      $(".TLcolumn").css("height", String($(window).height() - 39 - 40) + "px");
-      $(".timeline").css("height", String($(window).height() - 39 - 40) + "px");
+      $(".TLcolumn").css("height", String($(window).height() - 39 - 60) + "px");
+      $(".timeline").css("height", String($(window).height() - 39 - 105) + "px");
     });
 
     $('#textInputArea').bind('keyup', function() {
