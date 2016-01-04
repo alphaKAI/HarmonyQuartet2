@@ -43,10 +43,10 @@ export class SocketController {
 
     this.socket.on("userInfo", function(msg: any) {
       if (_this.ENV.loading) {
-        _this.ENV.uicontroller.stopLoading();
+        _this.ENV.dialog.stopLoading();
       }
 
-      _this.ENV.uicontroller.showUserPage(msg);
+      _this.ENV.dialog.showUserPage(msg);
     });
   }
 

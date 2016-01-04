@@ -6,12 +6,14 @@ import {TLStore} from "./tlController";
 import {UIController} from "./uiController";
 import {SocketController} from "./socketController";
 import {TwitterController} from "./twitterController";
+import {Dialog} from "./dialog";
 
 export class ApplicationMain {
   private env:               Environments;
   private tlStore:           TLStore;
   private ui:                UIController;
   private twitterController: TwitterController;
+  private dialog:            Dialog;
 
   constructor() {
     this.env               = new Environments();
@@ -21,6 +23,8 @@ export class ApplicationMain {
     this.env.uicontroller  = this.ui;
     this.env.socket        = new SocketController(this.env);
     this.twitterController = new TwitterController(this.env);
+    this.dialog            = new Dialog(this.env);
+    this.env.dialog        = this.dialog;
 
     /* tlの順番とかその辺も設定可能にしたい */
     this.tlStore.add("home");
@@ -45,12 +49,12 @@ export class ApplicationMain {
     });
 
     $(document).on("click", ".userPageOpenToggle", function(event: JQueryEventObject) { 
-      _this.ui.openUserPage($(this).attr("data-user_screen_name"));
+      _this.dialog.openUserPage($(this).attr("data-user_screen_name"));
     });
 
     $(document).on("click", ".userInfo", function(event: JQueryEventObject) {
       _this.tlStore.clickUserIcon($(this).attr("data-tlName"), $(this).attr("data-id"));
-      _this.ui.startLoading();
+      _this.dialog.startLoading();
     });
 
     $(document).on("click", ".actionRetweet", function(event: JQueryEventObject) {
