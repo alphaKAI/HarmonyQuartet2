@@ -38,6 +38,7 @@ export class SocketController {
     });
 
     this.socket.on("searchData", function(msg: any) {
+      _this.ENV.dialog.stopLoading();
       _this.ENV.uicontroller.showSearchResult(msg);
     });
 

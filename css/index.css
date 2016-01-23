@@ -43,3 +43,8 @@
 .tweetArea{
   height: 40px;
 }
+
+.twiterDate {
+  display: inline-block;
+  color: #3399FF;
+}

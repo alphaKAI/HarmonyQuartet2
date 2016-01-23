@@ -27,7 +27,7 @@ export class ApplicationMain {
     this.twitterController = new TwitterController(this.env);
     this.dialog            = new Dialog(this.env);
     this.env.dialog        = this.dialog;
-    this.keybindings       = new KeyBindings();
+    this.keybindings       = new KeyBindings(this.env);
 
     /* tlの順番とかその辺も設定可能にしたい */
     this.tlStore.add("home");

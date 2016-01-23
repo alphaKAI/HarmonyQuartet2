@@ -39,6 +39,8 @@ export class TL {
 
       this.selected   = n;
       this.selectable = true;
+      
+      this.ENV.focus = this.tlName + "_" + String(this.selected); 
     } else if (n == this.selected) {
       this.clearSelects();
       this.selectable = false;
@@ -62,7 +64,7 @@ export class TL {
   }
 
   keyDownReaction(keyCode: number) {
-    if (this.selectable) {
+    if (this.selectable && this.ENV.focus.split("_")[0] == this.tlName) {
       switch (keyCode) {
         case 38://Up key
           if (this.selected != this.tlLength - 1) {
@@ -100,13 +102,30 @@ export class TL {
     }
   }
 
-  /*
-    TODO: 追加するツイートがすでにFav or RTされいた場合、それを反映する
-   */
+  parseTwitterDate(created: string) : string{
+    var created_at = created.split(" ");
+    var post_date  = created_at[1] + " "
+                   + created_at[2] + ", "
+                   + created_at[5] + " "
+                   + created_at[3];
+
+    var date = new Date(post_date);
+    date.setHours(date.getHours() + 9);
+    var year = date.getFullYear();
+    var mon  = date.getMonth() + 1;
+    var day  = date.getDate();
+    var hour = date.getHours();
+    var min  = date.getMinutes();
+    
+    return [year, mon, day].join("/") + " " + [hour, min].join(":");
+  }
+   
   insertElement(element: TweetElement) {
     element.text = element.text.replace("\n", "<br>");
     element.text = element.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
+    element.text = element.text.replace(/(@\w+)/gi, "<span class='userPageOpenToggle' data-user_screen_name='$1' onclick=javascript:openUserPage('$1')>$1</span>");
 
+    var dateObj = new Date;
     var divElement = '<div class="item tweetElement" id= "' + this.tlName + "_" + String(this.tlLength) + '" data-tlName="' + this.tlName + '">'
                    +  '<div class="content">'
                    +    '<div class="header userName userInfo" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" >'
@@ -114,6 +133,9 @@ export class TL {
                    +        element.user["name"] + "(@" + element.user["screen_name"] + ")"
                    +    '</div>'
                    +    element.text
+                   +  '</div>'
+                   +  '<div class="twiterDate">'
+                   +  this.parseTwitterDate(element.created_at)
                    +  '</div>'
                    +  '<div class="twitterToggles" >';
    

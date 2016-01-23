@@ -43,10 +43,14 @@ export class UIController {
       $(".timeline").css("height", String($(window).height() - 39 - 110) + "px");
     });
 
-    $('#textInputArea').on('keypress keyup', function() {
+    $("#textInputArea").on("keypress keyup", function() {
       _this.updateTextInputArea($(this).val().length);
     });
-
+    
+    $("#textInputArea").focus(function(){
+      _this.ENV.focus = "textInputArea";
+    });
+    
     //SideBar Handler
     $("#ChangeHomeDisplay").click(function() {
       _this.changeDisplay("homeDisplay");
@@ -65,6 +69,7 @@ export class UIController {
 
     $("#searchButton").click(function() { 
       _this.searchRequest();
+      _this.ENV.dialog.startLoading();
     });
   }
 

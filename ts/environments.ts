@@ -18,6 +18,7 @@ export class Environments {
   public adminID:               string  = null;
   public overLayOpen:           boolean = false;
   public loading:               boolean = false;
+  public focus:                 string  = null;
 
   constructor() {}
 }

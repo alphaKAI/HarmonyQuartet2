@@ -18,6 +18,7 @@ export class TweetElement {
   originalJson:            JSON;
   favorited:               boolean;
   retweeted:               boolean;
+  created_at:              string;
 
   constructor(json: any) {
     this.originalJson = json;
@@ -32,6 +33,7 @@ export class TweetElement {
     this.favorited             = false;
     this.retweeted             = false;
 
+    this.created_at = this.getJsonData(json, "created_at"); 
     if ("event" in json) {
       this.kind  = "event";
       this.event = this.getJsonData(json, "event");
@@ -91,7 +93,7 @@ export class TweetElement {
       this.in_reply_to_status_id = this.getJsonData(json, "id_str");
       this.text = json["text"];
       
-      // ‚¨‚©‚µ‚¢
+      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
       this._protected = json["protected"];
         
       this.profile_image_url_https = json["user"]["profile_image_url_https"];

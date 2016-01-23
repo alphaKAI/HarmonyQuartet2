@@ -111,7 +111,8 @@ export class Dialog {
     //{
     divElement += '<div class="twitterToggles" >';
    
-    // FIXME: Filter of protected account is not working. 
+    // FIXME: Filter of protected account is not working.
+    //tlController.tsの処理をコピーしただけなのでここも修正が必要。 
     if (this.ENV.adminID != status.user["screen_name"] && status._protected != true) {
       divElement += '<button class="ui inverted red icon button dialogActionButton dialogActionRetweet ';
       if (status.retweeted == true) {
