@@ -6,12 +6,14 @@ import {TLStore} from "./tlController";
 import {UIController} from "./uiController";
 import {SocketController} from "./socketController";
 import {TwitterController} from "./twitterController";
+import {KeyBindings} from "./keyBindings";
 
 export class ApplicationMain {
   private env:               Environments;
   private tlStore:           TLStore;
   private ui:                UIController;
   private twitterController: TwitterController;
+  private keybindings:       KeyBindings;
 
   constructor() {
     this.env               = new Environments();
@@ -21,6 +23,7 @@ export class ApplicationMain {
     this.env.uicontroller  = this.ui;
     this.env.socket        = new SocketController(this.env);
     this.twitterController = new TwitterController(this.env);
+    this.keybindings       = new KeyBindings();
 
     /* tlの順番とかその辺も設定可能にしたい */
     this.tlStore.add("home");
