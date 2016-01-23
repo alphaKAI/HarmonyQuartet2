@@ -15,7 +15,7 @@ export class TwitterController {
     this.registerEventHandler();
   }
 
-  registerEventHandler() {
+  registerEventHandler(): void {
     var _this = this;
     
     $("#tweetButton").on("click", function() {
@@ -33,7 +33,7 @@ export class TwitterController {
     });
   }
 
-  update(text: string, in_reply_status_id: string = null) {
+  update(text: string, in_reply_status_id: string = null): void {
     var parameters: { [key: string]: string } = {};
     parameters["status"] = text;
 

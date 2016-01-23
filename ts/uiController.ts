@@ -73,7 +73,7 @@ export class UIController {
     });
   }
 
-  updateTextInputArea(thisValueLength: number) {
+  updateTextInputArea(thisValueLength: number): void {
     if (thisValueLength > 140) {
       $("#tweetButton").removeClass(this.normalColor);
       $("#tweetButton").addClass(this.warnColor);
@@ -90,22 +90,22 @@ export class UIController {
     $('.counter').html(String(this.ENV.lastLengthFlag ?  140 - thisValueLength : thisValueLength));
   }
 
-  addDisplay(name: string) {
+  addDisplay(name: string): void {
     this.displays.push(name);
     $("." + name).css("display", "none");
   }
 
-  activeDisplay(name: string) {
+  activeDisplay(name: string): void {
     this.activeDisplayName = name;
     $("." + name).css("display", "block");
   }
 
-  changeDisplay(name: string) {
+  changeDisplay(name: string): void {
     $("." + this.activeDisplayName).css("display", "none");
     this.activeDisplay(name);
   }
   
-  showSearchResult(res: any) {
+  showSearchResult(res: any): void {
     res["statuses"].reverse();
 
     for (var status in res["statuses"]) {
@@ -113,11 +113,11 @@ export class UIController {
     }
   }
 
-  searchRequest() {
+  searchRequest(): void {
     this.ENV.socket.getSearchData($(':text[name="searchText"]').val(), { "count": "100" });
   }
   
-  swapColumn(from: string, to: string) {
+  swapColumn(from: string, to: string): void {
     if (from[0] != "#") {
       from = "#" + from;
     }

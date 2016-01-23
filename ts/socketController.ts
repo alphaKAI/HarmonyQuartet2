@@ -51,15 +51,15 @@ export class SocketController {
     });
   }
 
-  send(method: string, endPoint: string, params: {[key: string]: string} = {}) {
+  send(method: string, endPoint: string, params: {[key: string]: string} = {}): void {
     this.socket.emit(method, {"endPoint" : endPoint, "params" : params});
   }
 
-  getUserData(screen_name: string) {
+  getUserData(screen_name: string): void {
     this.ENV.socket.send("command", "getUserInfo", { "screen_name": screen_name });
   }
 
-  getSearchData(query: string, otherOptions: {[key: string]: string} = {}) {
+  getSearchData(query: string, otherOptions: {[key: string]: string} = {}): void {
     if (otherOptions == {}) {
       this.ENV.socket.send("command", "getSearchData", { "q": query });
     } else {

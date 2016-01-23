@@ -8,7 +8,7 @@ export class KeyBindings {
     this.ENV = _env;
   }
 
-  private registerEventHandler() {
+  private registerEventHandler(): void {
     var _this = this;
     $(window).keydown(function (event) {
       switch (event.keyCode) {

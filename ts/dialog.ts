@@ -261,11 +261,11 @@ export class Dialog {
   }
 
 
-  deleteElement(id: number) {
+  deleteElement(id: number): void{
     $("#" + "dialog" + "_" + String(id)).css("display", "none");
   }
 
-  actionButtonReaction(method: string, id: string) {
+  actionButtonReaction(method: string, id: string): void {
     if (method == "Retweet") {
       if (this.dialogTweets[Number(id)].retweeted == false) {
         this.ENV.socket.send("POST", "/statuses/retweet/" + this.dialogTweets[Number(id)].id_str + ".json", { "id": this.dialogTweets[Number(id)].id_str });
@@ -292,7 +292,7 @@ export class Dialog {
     }
   }
 
-  setIDAndFocusTextArea(id: any = null) {
+  setIDAndFocusTextArea(id: any = null): void {
     $("#textInputArea").focus();
     $("#textInputArea").val("@" + this.dialogTweets[Number(id)].user["screen_name"] + " ");
   }

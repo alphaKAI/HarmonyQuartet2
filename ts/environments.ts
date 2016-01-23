@@ -19,6 +19,5 @@ export class Environments {
   public overLayOpen:           boolean = false;
   public loading:               boolean = false;
   public focus:                 string  = null;
-
   constructor() {}
 }

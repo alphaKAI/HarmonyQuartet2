@@ -41,10 +41,10 @@ export class ApplicationMain {
 
     this.ui.activeDisplay("homeDisplay");
 
-    this.registerEventHundler();
+    this.registerEventHandler();
   }
 
-  private registerEventHundler() {
+  private registerEventHandler(): void {
     var _this:any = this;
 
     $(document).on("click", "#toggleSidebar", function(event: JQueryEventObject) {
@@ -78,4 +78,4 @@ export class ApplicationMain {
   }
 }
 
-var app:ApplicationMain = new ApplicationMain();
+var app: ApplicationMain = new ApplicationMain();

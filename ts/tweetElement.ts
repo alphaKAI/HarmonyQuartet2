@@ -20,7 +20,7 @@ export class TweetElement {
   retweeted:               boolean;
   created_at:              string;
 
-  constructor(json: any) {
+  constructor(json: JSON) {
     this.originalJson = json;
 
     this.user["name"]          = "";
@@ -106,7 +106,7 @@ export class TweetElement {
     //RT, FAV and more....
   }
 
-  getOriginalJson(): any {
+  getOriginalJson(): JSON {
     return this.originalJson;
   }
 

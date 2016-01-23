@@ -14,25 +14,25 @@ export class TL {
   private selectable: boolean = false;
   private tlName:     string;
   private waitFlag:   boolean;
-  public  tweets:      { [key: number]: TweetElement } = {};
+  public  tweets:     { [key: number]: TweetElement } = {};
   private ENV:        Environments;
 
   constructor(arg: string, env: Environments) {
     this.ENV    = env;
     this.tlName = arg;
-    this.updatetlLength();
+    this.updateLength();
   }
 
-  updatetlLength() {
+  updateLength(): void {
     this.tlLength = $("#" + this.tlName + " .tweetElement").length;
   }
 
-  clickActionButton(jqThis: JQuery) {
+  clickActionButton(jqThis: JQuery): void {
     this.waitFlag = true;
     jqThis.toggleClass("active");
   }
 
-  toggleSelect(n: number) {
+  toggleSelect(n: number): void {
     if (n != this.selected) {
       $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
       $("#" + this.tlName + "_" + String(n)).addClass("selected");
@@ -47,14 +47,14 @@ export class TL {
     }
   }
 
-  clearSelects() {
+  clearSelects(): void {
     $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
     this.selectable = false;
     this.selected   = null;
     this.ENV.in_reply_to_status_id = null;
   }
 
-  clickReaction(jqThis: JQuery) {
+  clickReaction(jqThis: JQuery): void {
     if (!this.waitFlag) {
       this.selectable = true;
       this.toggleSelect(parseInt(jqThis.attr("id").split("_")[1]));
@@ -63,7 +63,7 @@ export class TL {
     }
   }
 
-  keyDownReaction(keyCode: number) {
+  keyDownReaction(keyCode: number): void {
     if (this.selectable && this.ENV.focus.split("_")[0] == this.tlName) {
       switch (keyCode) {
         case 38://Up key
@@ -79,7 +79,6 @@ export class TL {
         case 13://Enter key
           this.ENV.in_reply_to_status_id = this.tweets[this.selected].id_str;
           this.setIDAndFocusTextArea();
-          break;
         case 27://Escape key
           //close overlay display if overlay display is being opened
           if (this.ENV.overLayOpen) {
@@ -92,7 +91,7 @@ export class TL {
     }
   }
 
-  setIDAndFocusTextArea(id: any = null) {
+  setIDAndFocusTextArea(id: any = null): void {
     $("#textInputArea").focus();
 
     if (id == null) {
@@ -102,7 +101,7 @@ export class TL {
     }
   }
 
-  parseTwitterDate(created: string) : string{
+  priparseTwitterDate(created: string): string{
     var created_at = created.split(" ");
     var post_date  = created_at[1] + " "
                    + created_at[2] + ", "
@@ -120,7 +119,7 @@ export class TL {
     return [year, mon, day].join("/") + " " + [hour, min].join(":");
   }
    
-  insertElement(element: TweetElement) {
+  insertElement(element: TweetElement): void {
     element.text = element.text.replace("\n", "<br>");
     element.text = element.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
     element.text = element.text.replace(/(@\w+)/gi, "<span class='userPageOpenToggle' data-user_screen_name='$1' onclick=javascript:openUserPage('$1')>$1</span>");
@@ -134,7 +133,7 @@ export class TL {
                    +    '</div>'
                    +    element.text
                    +  '</div>'
-                   +  '<div class="twiterDate">'
+                   +  '<div class="twitterDate">'
                    +  this.parseTwitterDate(element.created_at)
                    +  '</div>'
                    +  '<div class="twitterToggles" >';
@@ -180,20 +179,20 @@ export class TL {
       $("#" + this.tlName + " .timeline").scrollTop(0);
     }
 
-    this.updatetlLength();
+    this.updateLength();
   }
 
-  deleteElement(id: number) {
+  deleteElement(id: number): void {
     $("#" + this.tlName + "_" + String(id)).css("display", "none");
   }
 
-  deleteAllElement() {
+  deleteAllElement(): void {
     for (var i = 0; i < this.tlLength; i++) {
       this.deleteElement(i);
     }
   }
   
-  twitterToggleClick(method: string, id: string) {
+  twitterToggleClick(method: string, id: string): void {
     if (method == "Retweet") {
       if (this.tweets[Number(id)].retweeted == false) {
         this.ENV.socket.send("POST", "/statuses/retweet/" + this.tweets[Number(id)].id_str + ".json", { "id": this.tweets[Number(id)].id_str });
@@ -238,7 +237,7 @@ export class TLStore {
     this.registerEventHandler();
   }
 
-  registerEventHandler() {
+  registerEventHandler(): void {
     var _this = this;
 
     $(document).on("keydown", function (event: JQueryEventObject) {
@@ -256,23 +255,23 @@ export class TLStore {
     });
   }
 
-  add(tlName: string) {
+  add(tlName: string): void {
     this.tls[tlName] = new TL(tlName, this.ENV);
   }
 
-  deleteAllElement(tlName: string) {
+  deleteAllElement(tlName: string): void {
     this.tls[tlName].deleteAllElement();
   }
 
-  insertElement(tlName: string, element: TweetElement) {
+  insertElement(tlName: string, element: TweetElement): void {
     this.tls[tlName].insertElement(element);
   }
 
-  twitterToggleClick(method: string, tlName: string, id: string) {
+  twitterToggleClick(method: string, tlName: string, id: string): void {
     this.tls[tlName].twitterToggleClick(method, id);
   }
 
-  setIDAndFocusTextArea(tlName: string, id: any = null) {
+  setIDAndFocusTextArea(tlName: string, id: any = null): void {
     if (id == null) {
       this.tls[tlName].setIDAndFocusTextArea();
     } else {
@@ -280,12 +279,12 @@ export class TLStore {
     }
   }
 
-  clickUserIcon(tlName: string, id: string) {
+  clickUserIcon(tlName: string, id: string): void {
     this.ENV.socket.getUserData(this.tls[tlName].tweets[Number(id)].user["screen_name"]);
   }
 
-  getTlsName() {
-    var keys: any[] = [];
+  getTlsName(): string[] {
+    var keys: string[] = [];
     for (var key in this.tls) {
       keys[keys.length++] = key;
     }
