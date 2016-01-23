@@ -20,36 +20,45 @@
 
 <body>
 
+
   <!-- SIDEBAR -->
-  <div class="ui left demo vertical inverted sidebar labeled icon menu">
-    <a class="item" id="ChangeHomeDisplay">
-      <i class="home icon"></i> Home
-    </a>
-    <a class="item" id="ChangeSettingDisplay">
-      <i class="settings icon"></i> Settings
-    </a>
-    <a class="item" id="ChangeBugReportDisplay">
-      <i class="bug icon"></i> Report Bugs
-    </a>
-    <a class="item" id="SignOutHundler">
-      <i class="sign out icon"></i> Sign out
-    </a>
-  </div>
-  <!-- END SIDEBAR -->
+  <!--
+    <div class="ui left demo vertical inverted sidebar labeled icon menu">
+      <a class="item" id="ChangeHomeDisplay">
+        <i class="home icon"></i> Home
+      </a>
+      <a class="item" id="ChangeSettingDisplay">
+        <i class="settings icon"></i> Settings
+      </a>
+      <a class="item" id="ChangeBugReportDisplay">
+        <i class="bug icon"></i> Report Bugs
+      </a>
+      <a class="item" id="SignOutHundler">
+        <i class="sign out icon"></i> Sign out
+      </a>
+    </div>
+    -->
+    <!-- END SIDEBAR -->
 
   <!-- HOME DISPLAY -->
   <div class="homeDisplay">
     <!-- GRID DIV -->
     <div class="ui four column TLcolumn grid">
       <!-- COLUMN ELEMENT -->
+      <!--
       <div class="TLcolumn column two wide columnElement">
+      -->
         <!--{{{-->
+        <!--
         <button class="ui labeled icon button" id="toggleSidebar">
           <i class="sidebar icon"></i>
           Sidebar
         </button>
+        -->
         <!--}}}-->
+      <!--
       </div>
+      -->
       <!-- END COLUMN ELEMENT -->
 
       <!-- COLUMN ELEMENT -->
@@ -77,13 +86,13 @@
       <!-- END COLUMN ELEMENET -->
 
       <!-- COLUMN ELEMENET -->
-      <div class="TLcolumn column three wide columnElement" id="search">
+      <div class="TLcolumn column four wide columnElement" id="search">
         <!--{{{-->
         <div class="columnTitle">
           Search
         </div>
         <div class="search">
-          <input type="text" name="searchText" value="">
+          <input type="text" name="searchText" value="" style="background-color:transparent;">
           <input type="button" name="searchButton" value="search" id="searchButton">
         </div>
         <div class="timeline">
@@ -93,7 +102,7 @@
       <!-- END COLUMN ELEMENET -->
 
       <!-- COLUMN ELEMENET -->
-      <div class="TLcolumn column three wide columnElement" id="dm">
+      <div class="TLcolumn column four wide columnElement" id="dm">
         <!--{{{-->
         <div class="columnTitle">
           Direct Messages
@@ -106,12 +115,12 @@
     </div>
     <!-- END GRID DIV -->
     <!-- GRID DIV -->
-    <div class="ui two column grid">
+    <div class="ui two column grid" style="margin-top:0;margin-bottom:0;">
       <div class="column two wide"></div>
       <div class="column eleven wide tweetArea">
         <div class="ui form">
           <div class="field tweetArea">
-            <textarea rows="3" id="textInputArea"></textarea>
+            <textarea rows="3" id="textInputArea" style="background-color:transparent;"></textarea>
           </div>
         </div>
       </div>
@@ -203,5 +212,11 @@
   <script type="text/javascript" src="js/socketController.js"></script>-->
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script type="text/javascript" src="js/min/bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+  <script>
+    $(function(){
+      $("body").backstretch("imgs/bg.jpg");
+    });
+  </script>
 </body>
 </html>

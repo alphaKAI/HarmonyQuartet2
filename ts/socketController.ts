@@ -15,7 +15,7 @@ export class SocketController {
   constructor(env: Environments) {
     this.ENV    = env;
     this.socket = io();
-    var _this  = this;
+    var _this   = this;
 
     this.send("command", "getAdminID");
     this.send("command", "getTimelines");

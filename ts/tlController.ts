@@ -35,6 +35,8 @@ export class TL {
   toggleSelect(n: number): void {
     if (n != this.selected) {
       $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
+      $("#" + this.tlName + "_" + String(this.selected)).addClass("default");
+      $("#" + this.tlName + "_" + String(n)).removeClass("default");
       $("#" + this.tlName + "_" + String(n)).addClass("selected");
 
       this.selected   = n;
@@ -49,6 +51,7 @@ export class TL {
 
   clearSelects(): void {
     $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
+    $("#" + this.tlName + "_" + String(this.selected)).addClass("default");
     this.selectable = false;
     this.selected   = null;
     this.ENV.in_reply_to_status_id = null;
@@ -101,7 +104,7 @@ export class TL {
     }
   }
 
-  priparseTwitterDate(created: string): string{
+  private parseTwitterDate(created: string): string{
     var created_at = created.split(" ");
     var post_date  = created_at[1] + " "
                    + created_at[2] + ", "
@@ -180,6 +183,7 @@ export class TL {
     }
 
     this.updateLength();
+    $("#" + this.tlName + "_" + String(this.tlLength)).addClass("default");
   }
 
   deleteElement(id: number): void {

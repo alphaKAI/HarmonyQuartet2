@@ -16,6 +16,7 @@ This version is development snapshot, please use at own risk.
 ```zsh:
 % npm install express socket.io serve-static confu ntwitter
 % npm install semantic-ui
+% tsc app.ts
 % cd ts/gulp
 % npm install
 % gulp tsc

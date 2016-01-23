@@ -1,6 +1,7 @@
 .DS_Store
 setting.json
 setting.json_
+app.js
 gb
 imgs
 filelen.rb

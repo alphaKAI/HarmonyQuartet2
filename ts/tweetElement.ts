@@ -20,7 +20,7 @@ export class TweetElement {
   retweeted:               boolean;
   created_at:              string;
 
-  constructor(json: JSON) {
+  constructor(json: any) {
     this.originalJson = json;
 
     this.user["name"]          = "";
@@ -92,8 +92,7 @@ export class TweetElement {
 
       this.in_reply_to_status_id = this.getJsonData(json, "id_str");
       this.text = json["text"];
-      
-      // ��������
+
       this._protected = json["protected"];
         
       this.profile_image_url_https = json["user"]["profile_image_url_https"];
@@ -106,7 +105,7 @@ export class TweetElement {
     //RT, FAV and more....
   }
 
-  getOriginalJson(): JSON {
+  getOriginalJson(): any {
     return this.originalJson;
   }
 
