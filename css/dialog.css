@@ -6,6 +6,7 @@
 .elementDivider{
   border-bottom: 1px #cccccc solid;
 }
+
 #overlayDisplay {
   -moz-border-radius: 6px;
   background-color: #ffffff;
@@ -25,6 +26,7 @@
 
   margin-left:-200px;
 }
+
 /* Lightbox表示時に背景を黒に */
 #overlayBackground{
   display:none;
@@ -43,16 +45,19 @@
   width: 500px;
   height: 200px;
 }
+
 #userInfoTop{
   width: 498px;
   height: 200px;
   background-size: cover;
 }
+
 #userInfoIcon{
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
+
 #userInfoName{
   margin-left: auto;
   margin-right: auto;
@@ -62,6 +67,7 @@
   color: white;
   background-color: rgba(35, 23, 23, 0.7);
 }
+
 #userInfoBio{
   color: white;
   background-color: rgba(35, 23, 23, 0.7);

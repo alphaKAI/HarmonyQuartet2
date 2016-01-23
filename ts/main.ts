@@ -6,6 +6,7 @@ import {TLStore} from "./tlController";
 import {UIController} from "./uiController";
 import {SocketController} from "./socketController";
 import {TwitterController} from "./twitterController";
+import {Dialog} from "./dialog";
 import {KeyBindings} from "./keyBindings";
 
 export class ApplicationMain {
@@ -13,6 +14,7 @@ export class ApplicationMain {
   private tlStore:           TLStore;
   private ui:                UIController;
   private twitterController: TwitterController;
+  private dialog:            Dialog;
   private keybindings:       KeyBindings;
 
   constructor() {
@@ -23,6 +25,8 @@ export class ApplicationMain {
     this.env.uicontroller  = this.ui;
     this.env.socket        = new SocketController(this.env);
     this.twitterController = new TwitterController(this.env);
+    this.dialog            = new Dialog(this.env);
+    this.env.dialog        = this.dialog;
     this.keybindings       = new KeyBindings();
 
     /* tlの順番とかその辺も設定可能にしたい */
@@ -43,32 +47,32 @@ export class ApplicationMain {
   private registerEventHundler() {
     var _this:any = this;
 
-    $(document).on("click", "#toggleSidebar", function(event) {
+    $(document).on("click", "#toggleSidebar", function(event: JQueryEventObject) {
       $(".ui.labeled.icon.sidebar").sidebar("toggle");
     });
 
-    $(document).on("click", ".userPageOpenToggle", function(event) { 
-      _this.ui.openUserPage($(this).attr("data-user_screen_name"));
+    $(document).on("click", ".userPageOpenToggle", function(event: JQueryEventObject) { 
+      _this.dialog.openUserPage($(this).attr("data-user_screen_name"));
     });
 
-    $(document).on("click", ".userInfo", function(event) {
+    $(document).on("click", ".userInfo", function(event: JQueryEventObject) {
       _this.tlStore.clickUserIcon($(this).attr("data-tlName"), $(this).attr("data-id"));
-      _this.ui.startLoading();
+      _this.dialog.startLoading();
     });
 
-    $(document).on("click", ".actionRetweet", function(event) {
+    $(document).on("click", ".actionRetweet", function(event: JQueryEventObject) {
       _this.tlStore.twitterToggleClick("Retweet", $(this).attr("data-tlName"), $(this).attr("data-id"))
     });
 
-    $(document).on("click", ".actionFavorite", function(event) {
+    $(document).on("click", ".actionFavorite", function(event: JQueryEventObject) {
       _this.tlStore.twitterToggleClick("Favorite", $(this).attr("data-tlName"), $(this).attr("data-id"));
     });
 
-    $(document).on("click", ".actionReply", function(event) {
+    $(document).on("click", ".actionReply", function(event: JQueryEventObject) {
       _this.tlStore.twitterToggleClick("Reply", $(this).attr("data-tlName"), $(this).attr("data-id"));
     });
 
-    $(document).on("click", ".actionDestroy", function (event) {
+    $(document).on("click", ".actionDestroy", function(event: JQueryEventObject) {
       _this.tlStore.twitterToggleClick("Destroy", $(this).attr("data-tlName"), $(this).attr("data-id"));
     });
   }

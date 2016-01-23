@@ -14,7 +14,7 @@ export class TL {
   private selectable: boolean = false;
   private tlName:     string;
   private waitFlag:   boolean;
-  public tweets:      { [key: number]: TweetElement } = {};
+  public  tweets:      { [key: number]: TweetElement } = {};
   private ENV:        Environments;
 
   constructor(arg: string, env: Environments) {
@@ -37,7 +37,7 @@ export class TL {
       $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
       $("#" + this.tlName + "_" + String(n)).addClass("selected");
 
-      this.selected = n;
+      this.selected   = n;
       this.selectable = true;
     } else if (n == this.selected) {
       this.clearSelects();
@@ -48,7 +48,7 @@ export class TL {
   clearSelects() {
     $("#" + this.tlName + "_" + String(this.selected)).removeClass("selected");
     this.selectable = false;
-    this.selected = null;
+    this.selected   = null;
     this.ENV.in_reply_to_status_id = null;
   }
 
@@ -81,7 +81,7 @@ export class TL {
         case 27://Escape key
           //close overlay display if overlay display is being opened
           if (this.ENV.overLayOpen) {
-            this.ENV.uicontroller.hideOverlay();
+            this.ENV.dialog.closeDialog();
           } else if (this.selectable) {
             this.clearSelects();
           }
@@ -108,28 +108,26 @@ export class TL {
     element.text = element.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
 
     var divElement = '<div class="item tweetElement" id= "' + this.tlName + "_" + String(this.tlLength) + '" data-tlName="' + this.tlName + '">'
-      + '<div class="content">'
-      + '<div class="header userName userInfo" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" >'
-      + '<img src="' + element.profile_image_url_https + '" alt="icon" class="ui avatar image">'
-      + element.user["name"] + "(@" + element.user["screen_name"] + ")"
-      + '</div>'
-      + element.text
-      + '</div>'
-      + '<div class="twitterToggles" >';
-    //このTLがDMである場合、RTとFavのボタンは要らない
+                   +  '<div class="content">'
+                   +    '<div class="header userName userInfo" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" >'
+                   +      '<img src="' + element.profile_image_url_https + '" alt="icon" class="ui avatar image">'
+                   +        element.user["name"] + "(@" + element.user["screen_name"] + ")"
+                   +    '</div>'
+                   +    element.text
+                   +  '</div>'
+                   +  '<div class="twitterToggles" >';
+   
     if (this.tlName != "dm") {
-      //追加するツイートがユーザーのものでない場合かつ鍵垢によるものでない場合、RTボタンを表示
-      //何故か鍵垢にたいするフィルタがうまくはたらかない
+      // FIXME: Filter of protected account is not working. 
       if (this.ENV.adminID != element.user["screen_name"] && element._protected != true) {
         divElement += '<button class="ui inverted red icon button actionButton actionRetweet ';
-        //追加するツイートがすでにRTされていた場合、それを反映する
         if (element.retweeted == true) {
           divElement += "active";
         }
         divElement += '" data-tlName="' + this.tlName + '" data-id="' + String(this.tlLength) + '" data-tlName="' + this.tlName + '"> <i class="icon retweet" > </i></button>';
       }
       divElement += '<button class="ui inverted orange icon button actionButton actionFavorite ';
-      //追加するツイートがすでにFavられていたばあい、それを反映する
+      
       if (element.favorited == true) {
         divElement += "active";
       }
@@ -150,7 +148,7 @@ export class TL {
 
     /*
       TLをスクロールしていた場合に、表示位置を固定する
-      keep scrolled y position
+      If TL is scrolled that fix y-coordinate.
     */
     if (scrollPosition != 0) {
       var x = document.getElementById(this.tlName + "_" + String(this.tlLength)).clientHeight;
@@ -207,9 +205,9 @@ export class TL {
 }
 
 export class TLStore {
-  private tls: { [key: string]: TL };
+  private tls:       { [key: string]: TL };
   private currentTL: string = "home";
-  private ENV: Environments;
+  private ENV:       Environments;
 
   constructor(env: Environments) {
     this.ENV = env;

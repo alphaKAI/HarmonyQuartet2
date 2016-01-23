@@ -57,6 +57,7 @@
     "./tlController.ts",
     "./tweetElement.ts",
     "./twitterController.ts",
-    "./uiController.ts"
+    "./uiController.ts",
+    "./dialog.ts"
   ]
 }
