@@ -9,7 +9,8 @@
 
 #overlayDisplay {
   -moz-border-radius: 6px;
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
+  background: rgba(255, 255, 255, 0.4);
   -webkit-border-radius: 6px;
   border: 1px solid #536376;
   -webkit-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;
@@ -22,7 +23,7 @@
   left:45%;
   display:none;
   z-index:10;
-  border:2px solid #ffffff;
+  border:2px solid #cccccc;
 
   margin-left:-200px;
 }
@@ -65,12 +66,18 @@
 
   text-align: center;
   color: white;
-  background-color: rgba(35, 23, 23, 0.7);
+  background: rgba(35, 23, 23, 0.7);
 }
 
 #userInfoBio{
   color: white;
-  background-color: rgba(35, 23, 23, 0.7);
+  background: rgba(35, 23, 23, 0.7);
+}
+
+#dialogUserMenu {
+  margin-left:auto;
+  margin-right:auto;
+  border-bottom: 2px solid #cccccc;
 }
 
 .tabElement{
@@ -82,10 +89,13 @@
   margin:5px;
 }
 
+
 .userElement {
-  background-color: #FFFFFF;
+  /*background-color: #ffffff;*/
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .userElement :hover{
-  background-color: #F5F5F5;
+  /*background-color: #F5F5F5;*/
+  background: rgba(245, 245, 245, 0.7);
 }

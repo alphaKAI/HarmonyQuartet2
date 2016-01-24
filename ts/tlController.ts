@@ -182,8 +182,9 @@ export class TL {
       $("#" + this.tlName + " .timeline").scrollTop(0);
     }
 
-    this.updateLength();
     $("#" + this.tlName + "_" + String(this.tlLength)).addClass("default");
+
+    this.updateLength();
   }
 
   deleteElement(id: number): void {

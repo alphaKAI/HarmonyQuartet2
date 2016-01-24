@@ -1,0 +1,17 @@
+{
+  "name": "HaromnyQuartet2",
+  "version": "0.2.1",
+  "private": true,
+  "dependencies":{
+    "express": "*",
+    "passport": "*",
+    "passport-twitter": "*",
+    "express-session": "*",
+    "cookie-parser":"*",
+    "socket.io":"*",
+    "serve-static":"*",
+    "confu": "*",
+    "ntwitter":"*",
+    "semantic-ui":"*"
+  }
+}

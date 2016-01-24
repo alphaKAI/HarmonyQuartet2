@@ -90,6 +90,24 @@ export class Dialog {
   }
 
   //Dialog
+
+  private parseTwitterDate(created: string): string{
+    var created_at = created.split(" ");
+    var post_date  = created_at[1] + " "
+      + created_at[2] + ", "
+      + created_at[5] + " "
+      + created_at[3];
+
+    var date = new Date(post_date);
+    date.setHours(date.getHours() + 9);
+    var year = date.getFullYear();
+    var mon  = date.getMonth() + 1;
+    var day  = date.getDate();
+    var hour = date.getHours();
+    var min  = date.getMinutes();
+
+    return [year, mon, day].join("/") + " " + [hour, min].join(":");
+  }
   /*
     Todo:
       Dialogの要素に対してのクリックで要素の色を変える(TLの様に)
@@ -99,14 +117,17 @@ export class Dialog {
     status.text = status.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
 
     var divElement: string =
-      '<div class="tweetElement" id= "' + "dialog" + "_" + String(this.dialogTweetLength) + '" ">'
+      '<div class="tweetElement" id= "' + "dialog" + "_" + String(this.dialogTweetLength) + '">'
       + '<div class="content">'
       + '<div class="header userName">'
       + '<img src="' + status.profile_image_url_https + '" alt= "icon" class="ui avatar image" >'
       + status.user["name"] + "(@" + status.user["screen_name"] + ")"
       + '</div>'
       + status.text
-      + '</div>';
+      + '</div>'
+      +  '<div class="twitterDate">'
+      +  this.parseTwitterDate(status.created_at)
+      +  '</div>';
       
     //{
     divElement += '<div class="twitterToggles" >';
@@ -165,7 +186,7 @@ export class Dialog {
       */
       + '</div>'
       + '<div id="userInfoNav">'
-      + '<div class="ui secondary menu">'
+      + '<div class="ui secondary menu" id="dialogUserMenu">'
       + '<a class="item active" data-tab="tweets"> Tweets </a>'
       + '<a class="item" data-tab="follows"> Following </a>'
       + '<a class="item" data-tab="followers"> Followers </a>'
@@ -184,6 +205,8 @@ export class Dialog {
       this.dialogTweets[this.dialogTweetLength++] = element;
       console.log(this.dialogTweets);
       userPageDiv += this.buildTweetDiv(element);
+      $("#dialog_" + String(this.dialogTweetLength - 1)).addClass("default");
+      console.log($("#dialog_" + String(this.dialogTweetLength - 1)).hasClass("default"));
     }
 
     userPageDiv +=
