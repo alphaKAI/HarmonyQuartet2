@@ -14,8 +14,7 @@ This version is development snapshot, please use at own risk.
 ##Dependencies
 
 ```zsh:
-% npm install express socket.io serve-static confu ntwitter
-% npm install semantic-ui
+% npm install
 % tsc app.ts
 % cd ts/gulp
 % npm install
@@ -40,8 +39,8 @@ Please run "gulp build" at "node_modules/semantic-ui"
 You have only to hit return key if you are asked by gulp wizard.
   
 
-Currently, HarmonyQuartet2 doesn't support twitter authoraization byself, therefore you should configurate setting.js as follows:  
-
+HarmonyQurartet2 support Twitter Authraization.  
+If you already have access_token and access_token_secret or intend to use your consumer_key, you should configure "setting.json" as below:  
 ```:json
 {
   "consumer_key"        : "Your Consumer Key",
@@ -51,10 +50,19 @@ Currently, HarmonyQuartet2 doesn't support twitter authoraization byself, theref
 }
 ```
 
+Note: Currently, HarmonyQuartet2 doesn't provide own consumer_key and consumer_secret therefore you must arrange your consumer_key from [apps.twitter.com](https://apps.twitter.com) and configure "setting.json" as below:  
+```:json
+{
+  "consumer_key"        : "Your Consumer Key",
+  "consumer_secret"     : "Your Consumer Secret",
+}
+```
+It isn't necessary for you to set an access token, for HarmonyQuartet authenticate and save automatically.  
+  
   
 ##Execute
 1. run `% node app.js`  
-2. access to `localhost:3000`  
+2. access to `127.0.0.1:3000`  
   
   
 ##Disclaimer
