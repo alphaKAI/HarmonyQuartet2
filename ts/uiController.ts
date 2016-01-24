@@ -106,6 +106,10 @@ export class UIController {
   }
   
   showSearchResult(res: any): void {
+    if (res == undefined) {
+      return;
+    }
+
     res["statuses"].reverse();
 
     for (var status in res["statuses"]) {
@@ -121,6 +125,7 @@ export class UIController {
     if (from[0] != "#") {
       from = "#" + from;
     }
+
     if (to[0] != "#") {
       to = "#" + to;
     }
