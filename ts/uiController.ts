@@ -69,7 +69,7 @@ export class UIController {
 
     $("#searchButton").click(function() { 
       _this.searchRequest();
-      _this.ENV.dialog.startLoading();
+      _this.ENV.loadingController.startLoading();
     });
   }
 

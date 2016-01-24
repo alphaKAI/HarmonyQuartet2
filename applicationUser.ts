@@ -89,7 +89,7 @@ export class ApplicationUser {
 
             dmSendArray.sort(function (_a, _b) {
               var a = _this.createdAtToDate(_a),
-                b = _this.createdAtToDate(_b);
+                  b = _this.createdAtToDate(_b);
 
               if (a < b) {
                 return -1;
@@ -104,6 +104,8 @@ export class ApplicationUser {
               status["user"] = status["sender"];
               _this.emitToClient("dm", status);
             }, this);
+
+            _this.emitToClient("closeCoverWithLogo", null);
           });
         });
 
@@ -115,11 +117,19 @@ export class ApplicationUser {
           }
 
           sendArray.reverse();
-          sendArray.forEach(function (status) {
-            _this.emitToClient("reply", status);
-          }, this);
+          sendArray.forEach(status => _this.emitToClient("reply", status), this);
         });
 
+        _this.twit.get("/statuses/home_timeline.json", { "count": requestCount }, function (err, res) {
+          var sendArray:any[] = [];
+
+          for (var status in res) {
+            sendArray[sendArray.length++] = res[status];
+          }
+
+          sendArray.reverse();
+          sendArray.forEach(status => _this.emitToClient("tweet", status), this);
+        });
       } else if (data["endPoint"] == "getUserInfo") {
         var target = data["params"]["screen_name"];
         var returnJson = {};

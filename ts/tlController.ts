@@ -86,6 +86,8 @@ export class TL {
           //close overlay display if overlay display is being opened
           if (this.ENV.overLayOpen) {
             this.ENV.dialog.closeDialog();
+          } else if (this.ENV.coverWithLogoOpen) {
+            this.ENV.screenCover.closeCover();
           } else if (this.selectable) {
             this.clearSelects();
           }

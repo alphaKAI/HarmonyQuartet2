@@ -15,7 +15,7 @@ export class Dialog {
     this.registerEventHandler();
   }
 
-  registerEventHandler(): void {
+  private registerEventHandler(): void {
     var _this = this;
 
     $("#overlayBackground").click(function() {
@@ -47,20 +47,8 @@ export class Dialog {
 
   openUserPage(target: string): void {
     this.closeDialog();
-    this.startLoading();
+    this.ENV.loadingController.startLoading();
     this.ENV.socket.getUserData(target);
-  }
-
-  startLoading(): void {
-    this.ENV.loading = true;
-    $("#loading").fadeIn(300);
-    $('.loadingBall, .loadibgBall1').removeClass('stopLoading');
-  }
-
-  stopLoading(): void {
-    this.ENV.loading = false;
-    $('.loadingBall, .loadibgBall1').addClass('stopLoading');
-    $("#loading").fadeOut(300);
   }
 
   openDialog(): void {
@@ -90,7 +78,6 @@ export class Dialog {
   }
 
   //Dialog
-
   private parseTwitterDate(created: string): string{
     var created_at = created.split(" ");
     var post_date  = created_at[1] + " "
@@ -112,7 +99,7 @@ export class Dialog {
     Todo:
       Dialogの要素に対してのクリックで要素の色を変える(TLの様に)
   */
-  buildTweetDiv(status: TweetElement): string {
+  private buildTweetDiv(status: TweetElement): string {
     status.text = status.text.replace("\n", "<br>");
     status.text = status.text.replace(/(https?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
 
@@ -160,7 +147,7 @@ export class Dialog {
     return divElement;
   }
 
-  buildUserDiv(user: { [key: string]: string }): string {
+  private buildUserDiv(user: { [key: string]: string }): string {
     return '<div class="item elementDivider userElement">'
       + '<div class="content userPageOpenToggle" data-user_screen_name="' + user["screen_name"] + '" onclick=javascript:openUserPage("' + user["screen_name"] + '")>'
       + '<div class="header userName">'
@@ -284,11 +271,11 @@ export class Dialog {
   }
 
 
-  deleteElement(id: number): void{
+  private deleteElement(id: number): void{
     $("#" + "dialog" + "_" + String(id)).css("display", "none");
   }
 
-  actionButtonReaction(method: string, id: string): void {
+  private actionButtonReaction(method: string, id: string): void {
     if (method == "Retweet") {
       if (this.dialogTweets[Number(id)].retweeted == false) {
         this.ENV.socket.send("POST", "/statuses/retweet/" + this.dialogTweets[Number(id)].id_str + ".json", { "id": this.dialogTweets[Number(id)].id_str });
@@ -315,7 +302,7 @@ export class Dialog {
     }
   }
 
-  setIDAndFocusTextArea(id: any = null): void {
+  private setIDAndFocusTextArea(id: any = null): void {
     $("#textInputArea").focus();
     $("#textInputArea").val("@" + this.dialogTweets[Number(id)].user["screen_name"] + " ");
   }

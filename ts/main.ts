@@ -6,6 +6,8 @@ import {TLStore} from "./tlController";
 import {UIController} from "./uiController";
 import {SocketController} from "./socketController";
 import {TwitterController} from "./twitterController";
+import {LoadingController} from "./loadingController";
+import {ScreenCover} from "./screenCover";
 import {Dialog} from "./dialog";
 import {KeyBindings} from "./keyBindings";
 
@@ -16,6 +18,8 @@ export class ApplicationMain {
   private twitterController: TwitterController;
   private dialog:            Dialog;
   private keybindings:       KeyBindings;
+  private loadingController: LoadingController;
+  private screenCover:       ScreenCover;
 
   constructor() {
     this.env               = new Environments();
@@ -25,6 +29,10 @@ export class ApplicationMain {
     this.env.uicontroller  = this.ui;
     this.env.socket        = new SocketController(this.env);
     this.twitterController = new TwitterController(this.env);
+    this.loadingController = new LoadingController(this.env);
+    this.env.loadingController = this.loadingController;
+    this.screenCover       = new ScreenCover(this.env);
+    this.env.screenCover   = this.screenCover;
     this.dialog            = new Dialog(this.env);
     this.env.dialog        = this.dialog;
     this.keybindings       = new KeyBindings(this.env);
@@ -42,6 +50,8 @@ export class ApplicationMain {
     this.ui.activeDisplay("homeDisplay");
 
     this.registerEventHandler();
+
+    this.env.screenCover.openCoverWithLogo();
   }
 
   private registerEventHandler(): void {
@@ -57,7 +67,7 @@ export class ApplicationMain {
 
     $(document).on("click", ".userInfo", function(event: JQueryEventObject) {
       _this.tlStore.clickUserIcon($(this).attr("data-tlName"), $(this).attr("data-id"));
-      _this.dialog.startLoading();
+      _this.loadingController.startLoading();
     });
 
     $(document).on("click", ".actionRetweet", function(event: JQueryEventObject) {

@@ -38,16 +38,20 @@ export class SocketController {
     });
 
     this.socket.on("searchData", function(msg: any) {
-      _this.ENV.dialog.stopLoading();
+      _this.ENV.loadingController.stopLoading();
       _this.ENV.uicontroller.showSearchResult(msg);
     });
 
     this.socket.on("userInfo", function(msg: any) {
       if (_this.ENV.loading) {
-        _this.ENV.dialog.stopLoading();
+        _this.ENV.loadingController.stopLoading();
       }
 
       _this.ENV.dialog.showUserPage(msg);
+    });
+
+    this.socket.on("closeCoverWithLogo", function (msg: any) {
+      _this.ENV.screenCover.closeCoverWithLogo();
     });
   }
 

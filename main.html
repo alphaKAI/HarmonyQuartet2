@@ -15,6 +15,7 @@
 
   <link rel="stylesheet" type="text/css" href="css/index.css">
   <link rel="stylesheet" type="text/css" href="css/dialog.css">
+  <link rel="stylesheet" type="text/css" href="css/cover.css">
   <link rel="stylesheet" type="text/css" href="css/loader.css">
 </head>
 
@@ -92,8 +93,8 @@
           Search
         </div>
         <div class="search">
-          <input type="text" name="searchText" value="" >
-          <input type="button" name="searchButton" value="search" id="searchButton">
+          <input type="text" name="searchText" value="" style="background-color:transparent;">
+          <input type="button" name="searchButton" value="search" id="searchButton" style="background-color:transparent;">
         </div>
         <div class="timeline">
         </div>
@@ -192,6 +193,17 @@
     </div>
   </div>
   <div id="overlayBackground"></div>
+  <!-- END OVERLAY DISPLAY -->
+
+  <!-- COVER DISPLAY -->
+  <div id="coverDisplay">
+    <div id="coverContent">
+
+    </div>
+  </div>
+  <div id="coverBackground"></div>
+  <!-- END COVER DISPLAY -->
+
   <div id="loading">
     <div class="loadingContainer">
       <div class="loadingContent">
@@ -200,7 +212,7 @@
       </div>
     </div>
   </div>
-  <!-- END OVERLAY DISPLAY -->
+
 
 <!--
   <script type="text/javascript" src="js/environments.js"></script>
