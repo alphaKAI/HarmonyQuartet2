@@ -11,34 +11,16 @@ This version is development snapshot, please use at own risk.
 * node.js(latest)  
   
   
-##Dependencies
+##Setup
 
 ```zsh:
-% npm install
-% tsc app.ts
-% cd ts/gulp
-% npm install
-% gulp tsc
-% gulp browserify
-% gulp minify
+% ./setup.sh
 ```
   
 ###Note
-Installation path of semantic-ui is not default path(semantic/).  
-Please enter "lib/semantic" when you are asked.  
+The semantic-ui's install wizard ask you some questions but you have only to hit return key.  
   
-Install wizard of semantic-ui says `run "gulp build" at /lib/semantic`, though this command wouldn't work.  
-Please run "gulp build" at "node_modules/semantic-ui"  
-(This problem might have been fixed.)  
-
-```:zsh
-% cd node_modules/semantic-ui  
-% gulp build  
-```
-
-You have only to hit return key if you are asked by gulp wizard.
   
-
 HarmonyQurartet2 support Twitter Authraization.  
 If you already have access_token and access_token_secret or intend to use your consumer_key, you should configure "setting.json" as below:  
 ```:json
