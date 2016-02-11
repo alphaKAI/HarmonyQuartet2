@@ -95,6 +95,7 @@ export class Dialog {
 
     return [year, mon, day].join("/") + " " + [hour, min].join(":");
   }
+
   /*
     Todo:
       Dialogの要素に対してのクリックで要素の色を変える(TLの様に)

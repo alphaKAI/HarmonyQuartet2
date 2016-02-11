@@ -49,6 +49,9 @@ export class UIController {
     
     $("#textInputArea").focus(function(){
       _this.ENV.focus = "textInputArea";
+      $("#divTextInputArea").css("background-color", "rgba(255, 255, 255, 0.4)");
+    }).blur(function(){
+      $("#divTextInputArea").css("background-color", "rgba(255, 255, 255, 0.0)");
     });
     
     //SideBar Handler
