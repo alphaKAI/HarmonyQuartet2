@@ -1,234 +1,198 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <!--
+  <head>
+    <!--
     The MIT License
-    Copyright (C) 2015 alphaKAI
-  -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>HarmonyQuartet UI</title>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-  <script src="semantic/dist/semantic.min.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="css/index.css">
-  <link rel="stylesheet" type="text/css" href="css/dialog.css">
-  <link rel="stylesheet" type="text/css" href="css/cover.css">
-  <link rel="stylesheet" type="text/css" href="css/loader.css">
-</head>
-
-<body>
-
-
-  <!-- SIDEBAR -->
-  <!--
-    <div class="ui left demo vertical inverted sidebar labeled icon menu">
-      <a class="item" id="ChangeHomeDisplay">
-        <i class="home icon"></i> Home
-      </a>
-      <a class="item" id="ChangeSettingDisplay">
-        <i class="settings icon"></i> Settings
-      </a>
-      <a class="item" id="ChangeBugReportDisplay">
-        <i class="bug icon"></i> Report Bugs
-      </a>
-      <a class="item" id="SignOutHundler">
-        <i class="sign out icon"></i> Sign out
-      </a>
-    </div>
+    Copyright (C) 2015-2016 alphaKAI
     -->
-    <!-- END SIDEBAR -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>HarmonyQuartet UI</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script src="semantic/dist/semantic.min.js"></script>
 
-  <!-- HOME DISPLAY -->
-  <div class="homeDisplay">
-    <!-- GRID DIV -->
-    <div class="ui four column TLcolumn grid">
-      <!-- COLUMN ELEMENT -->
-      <!--
-      <div class="TLcolumn column two wide columnElement">
-      -->
-        <!--{{{-->
-        <!--
-        <button class="ui labeled icon button" id="toggleSidebar">
-          <i class="sidebar icon"></i>
-          Sidebar
-        </button>
-        -->
-        <!--}}}-->
-      <!--
-      </div>
-      -->
-      <!-- END COLUMN ELEMENT -->
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/display.css">
+    <link rel="stylesheet" type="text/css" href="css/timeline.css">
+    <link rel="stylesheet" type="text/css" href="css/tweet.css">
+    <link rel="stylesheet" type="text/css" href="css/controllers.css">
+    
+    
+  </head>
+  <body>
 
-      <!-- COLUMN ELEMENT -->
-      <div class="TLcolumn column four wide columnElement" id="home">
-        <!--{{{-->
-        <div class="columnTitle">
-          Home
-        </div>
-        <div class="timeline">
-        </div>
-        <!--}}}-->
-      </div>
-      <!-- END COLUMN ELEMENT -->
-
-      <!-- COLUMN ELEMENET -->
-      <div class="TLcolumn column four wide columnElement" id="reply">
-        <!--{{{-->
-        <div class="columnTitle">
-          Mentions
-        </div>
-        <div class="timeline">
-        </div>
-        <!--}}}-->
-      </div>
-      <!-- END COLUMN ELEMENET -->
-
-      <!-- COLUMN ELEMENET -->
-      <div class="TLcolumn column four wide columnElement" id="search">
-        <!--{{{-->
-        <div class="columnTitle">
-          Search
-        </div>
-        <div class="search">
-          <input type="text" name="searchText" value="" style="background-color:transparent;">
-          <input type="button" name="searchButton" value="search" id="searchButton" style="background-color:transparent;">
-        </div>
-        <div class="timeline">
-        </div>
-        <!--}}}-->
-      </div>
-      <!-- END COLUMN ELEMENET -->
-
-      <!-- COLUMN ELEMENET -->
-      <div class="TLcolumn column four wide columnElement" id="dm">
-        <!--{{{-->
-        <div class="columnTitle">
-          Direct Messages
-        </div>
-        <div class="timeline">
-        </div>
-        <!--}}}-->
-      </div>
-      <!-- END COLUMN ELEMENET -->
-    </div>
-    <!-- END GRID DIV -->
-    <!-- GRID DIV -->
-    <div class="ui two column grid" style="margin-top:0;margin-bottom:0;">
-      <div class="column two wide"></div>
-      <div class="column eleven wide tweetArea">
-        <div class="ui form">
-          <div class="field tweetArea" id="divTextInputArea">
-            <textarea rows="3" id="textInputArea" style="background-color:transparent;"></textarea>
+    <!-- Displays -->
+    <div class="displays">
+      <!-- Main Display -->
+      <div class="display" id="mainDisplay">
+        <div class="controllers">
+          <div class="accounts">
+            <div class="account accountActiveBackground">
+              <img src="https://pbs.twimg.com/profile_images/501398974121537536/mcex3wCa_normal.png" alt="" />
+            </div>
+            <div class="account accountDefaultBackgdound">
+              <img src="https://pbs.twimg.com/profile_images/501398974121537536/mcex3wCa_normal.png" alt="" />
+            </div>
+            <div class="account accountDefaultBackgdound">
+              <img src="https://pbs.twimg.com/profile_images/501398974121537536/mcex3wCa_normal.png" alt="" />
+            </div>
           </div>
+
+          <div class="ui form">
+            <div class="field textArea" id="divTextInputArea">
+              <textarea rows="7" id="textInputArea" style="background-color:transparent;"></textarea>
+            </div>
+          </div>
+
+          <button class="tweetButton">Tweet</button>
+
         </div>
+        <!-- TLColumns -->
+        <div class="TLColumns">
+          <!-- TLColumn:home-->
+          <div class="TLColumn" id="home">
+            <div class="TLTitle">
+              Home
+            </div>
+
+            <div class="TLElements">
+       <!--
+              <div class="TLElement TLElementDefault" id="home_40" data-tlname="home">
+                <div class="userInfo" data-tlname="home" data-id="40">
+                  <div class="userIcon">
+                    <img src="https://pbs.twimg.com/profile_images/501398974121537536/mcex3wCa_normal.png" alt="icon" class="userIcon">
+                  </div>
+                  <div class="userName">
+                    α改(@alpha_kai_NET)
+                  </div>
+                </div>
+
+                <div class="tweetText">
+                  おきました。おはようございます
+                </div>
+                
+                <div class="TLElementActionButtons">
+                  <button class="ui inverted red icon button ">
+                    <i class="icon retweet" > </i>
+                  </button>
+                  <button class="ui inverted orange icon button">
+                    <i class="icon star"    > </i>
+                  </button>
+                  <button class="ui inverted blue icon button">
+                    <i class="icon reply"   > </i>
+                  </button>
+                  <button class="ui inverted green icon button">
+                    <i class="icon trash" > </i>
+                  </button>
+                </div>
+              </div>
+              
+              <div class="TLElement TLElementDefault" id="home_39" data-tlname="home">
+                <div class="userInfo" data-tlname="home" data-id="39">
+                  <div class="userIcon">
+                    <img src="https://pbs.twimg.com/profile_images/501398974121537536/mcex3wCa_normal.png" alt="icon" class="userIcon">
+                  </div>
+                  <div class="userName">
+                    α改(@alpha_kai_NET)
+                  </div>
+                </div>
+
+                <div class="tweetText">
+                  D言語による黒魔術は少しだけ使えます
+                </div>
+                
+                <div class="TLElementActionButtons">
+                  <button class="ui inverted red icon button">
+                    <i class="icon retweet" > </i>
+                  </button>
+                  <button class="ui inverted orange icon button">
+                    <i class="icon star"    > </i>
+                  </button>
+                  <button class="ui inverted blue icon button">
+                    <i class="icon reply"   > </i>
+                  </button>
+                  <button class="ui inverted green icon button">
+                    <i class="icon trash" > </i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="TLElement TLElementDefault" id="home_38" data-tlname="home">
+                <div class="userInfo" data-tlname="home" data-id="38">
+                  <div class="userIcon">
+                    <img src="https://pbs.twimg.com/profile_images/501398974121537536/mcex3wCa_normal.png" alt="icon" class="userIcon">
+                  </div>
+                  <div class="userName">
+                    α改(@alpha_kai_NET)
+                  </div>
+                </div>
+
+                <div class="tweetText">
+                  そもそも僕、プログラミングは趣味でやってるだけだし
+その理由が、誰かを笑顔にできるようなものが作りたいな〜って感じの笑われるかもしれん理由で将来お金を稼ぐためってわけではないのでビジネスは興味が無い
+                </div>
+                
+                <div class="TLElementActionButtons">
+                  <button class="ui inverted red icon button">
+                    <i class="icon retweet" > </i>
+                  </button>
+                  <button class="ui inverted orange icon button">
+                    <i class="icon star"    > </i>
+                  </button>
+                  <button class="ui inverted blue icon button">
+                    <i class="icon reply"   > </i>
+                  </button>
+                  <button class="ui inverted green icon button">
+                    <i class="icon trash" > </i>
+                  </button>
+                </div>
+              </div>
+-->
+            </div>
+          </div>
+          <!-- End of TLColumn:home -->
+
+          <!-- TLColumn:notifications -->
+          <div class="TLColumn" id="reply">
+            <div class="TLTitle">
+              reply
+            </div>
+
+            <div class="TLElements">
+            </div>
+          </div>
+          <!-- End of TLColumn:notifications -->
+
+          <!-- TLColumn:dm -->
+          <div class="TLColumn" id="dm">
+            <div class="TLTitle">
+              Direct Messages
+            </div>
+
+            <div class="TLElements">
+            </div>
+          </div>
+          <!-- End of TLColumn:dm -->
+
+          <!-- TLColumn:search -->
+          <div class="TLColumn TLColumnLast" id="search">
+            <div class="TLTitle">
+              Search
+            </div>
+
+            <div class="TLElements">
+            </div>
+          </div>
+          <!-- End of TLColumn:dm -->
+
+        </div>
+        <!-- End of TLColumns -->
       </div>
-      <div class="column two wide tweetArea">
-        <button class="ui massive blue inverted button" id="tweetButton">Tweet</button>
-        <label class="counter">0</label>
-      </div>
+      <!-- End of Main Display -->
     </div>
-    <!-- END GRID DIV -->
-  </div>
-  <!-- END HOME DISPLAY -->
-
-  <!-- ******************* -->
-
-  <!-- SETTING DISPLAY -->
-  <div class="settingDisplay">
-    <!-- GRID DIV -->
-    <div class="ui two column TLcolumn grid">
-      <!-- COLUMN ELEMENT -->
-      <div class="TLcolumn column two wide columnElement">
-        <button class="ui labeled icon button" id="toggleSidebar">
-          <i class="sidebar icon"></i>
-          Sidebar
-        </button>
-      </div>
-      <!-- END COLUMN ELEMENT -->
-
-      <!-- COLUMN ELEMENT -->
-      <div class="TLcolumn column fourteen wide columnElement">
-        Here is setting display
-      </div>
-      <!-- END COLUMN ELEMENET -->
-
-    </div>
-    <!-- END GRID DIV -->
-  </div>
-  <!-- END SETTING DISPLAY -->
-
-  <!-- ******************* -->
-
-  <!-- BUG REPORT DISPLAY -->
-  <div class="bugReportDisplay">
-    <!-- GRID DIV -->
-    <div class="ui two column TLcolumn grid">
-      <!-- COLUMN ELEMENT -->
-      <div class="TLcolumn column two wide columnElement">
-        <button class="ui labeled icon button" id="toggleSidebar">
-          <i class="sidebar icon"></i>
-          Sidebar
-        </button>
-      </div>
-      <!-- END COLUMN ELEMENT -->
-
-      <!-- COLUMN ELEMENT -->
-      <div class="TLcolumn column fourteen wide columnElement">
-        Here is bug report display
-      </div>
-      <!-- END COLUMN ELEMENET -->
-
-    </div>
-    <!-- END GRID DIV -->
-  </div>
-  <!-- END BUG REPORT DISPLAY -->
-
-  <!-- OVERLAY DISPLAY -->
-  <div id="overlayDisplay">
-    <div id="content">
-
-    </div>
-  </div>
-  <div id="overlayBackground"></div>
-  <!-- END OVERLAY DISPLAY -->
-
-  <!-- COVER DISPLAY -->
-  <div id="coverDisplay">
-    <div id="coverContent">
-
-    </div>
-  </div>
-  <div id="coverBackground"></div>
-  <!-- END COVER DISPLAY -->
-
-  <div id="loading">
-    <div class="loadingContainer">
-      <div class="loadingContent">
-        <div class="loadingBall"></div>
-        <div class="loadingBall1"></div>
-      </div>
-    </div>
-  </div>
-
-
-<!--
-  <script type="text/javascript" src="js/environments.js"></script>
-  <script type="text/javascript" src="js/tlController.js"></script>
-  <script type="text/javascript" src="js/uiController.js"></script>
-  <script type="text/javascript" src="js/tweetElement.js"></script>
-  <script type="text/javascript" src="js/twitterController.js"></script>
-  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script type="text/javascript" src="js/socketController.js"></script>-->
-  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script type="text/javascript" src="js/min/bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
-  <script>
-    $(function(){
-      $("body").backstretch("imgs/bg.jpg");
-    });
-  </script>
-</body>
+    <!-- End of Displays -->
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="js/bundle.js"></script>
+  </body>
 </html>

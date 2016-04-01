@@ -1,0 +1,77 @@
+div.controllers {
+  /*background-color: #550200;*/
+  background-color: #0b5e90;
+  height: 100%;
+  width: 20%;
+
+}
+
+div.accounts {
+  margin: 5px;
+  overflow-x: scroll;
+
+  display: -webkit-flex;
+  display:flex;
+
+  -webkit-flex-wrap: nowrap;
+  flex-wrap:         nowrap;
+
+  -webkit-flex-shrink: 1;
+  flex-shrink: 1;
+}
+
+div.account {
+  width: 60px;
+  height: 60px;
+  padding-top: 5px;
+  padding-left: 5px;
+
+  border: 1px solid #189cb8;
+}
+
+div.accountDefaultBackgdound {
+  background-color: #86d2dd;
+}
+
+div.accountActiveBackground {
+  /*background-color: #C85956;*/
+  background-color: #defbfa;
+}
+
+div.textArea {
+  margin: 5px;
+  /*
+  background-color: #370100;
+  */
+  background-color:#defbfa;
+}
+
+textarea#textInputArea,
+textarea#textInputArea::selection {
+  /*color: #A73835;*/
+  color: #0b5e90;
+  border-radius: 0px;
+} 
+
+button.tweetButton {
+  
+  color: #0b5e90;
+  width: 100%;
+  height: 40px;
+  margin-top: 5px;
+
+  /*background-color: #7D1613;
+  border: 3px solid #370100;*/
+  background-color: #86d2dd;
+  border: 3px solid #189cb8;
+}
+
+button.tweetButton:hover {
+  /*
+  color: #C85956;
+  background-color: #370100;
+  border: 3px solid #7D1613;
+  */
+  background-color: #189cb8;
+  border: 3px solid #86d2dd;
+}

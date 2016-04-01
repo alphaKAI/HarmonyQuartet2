@@ -1,12 +1,12 @@
-/// <reference path="lib/socket.io.d.ts" />
+/// <reference path="../lib/socket.io.d.ts" />
 
 /*
   The MIT License
-  Copyright (C) 2015 alphaKAI
+  Copyright (C) 2015-2016 alphaKAI
 */
 
-import {Environments} from "./environments";
-import {TweetElement} from "./tweetElement";
+import {Environments} from "../environments";
+import {TweetElement} from "../tweetElement";
 
 export class SocketController {
   private ENV:    Environments;
@@ -25,33 +25,16 @@ export class SocketController {
     });
 
     this.socket.on("tweet", function(msg: any) {
-      _this.ENV.tlStore.insertElement("home", new TweetElement(msg));
+      _this.ENV.timeLineUI.addNewTweet("home", new TweetElement(msg));
     });
 
     this.socket.on("reply", function(msg: any) {
-      _this.ENV.tlStore.insertElement("home", new TweetElement(msg));
-      _this.ENV.tlStore.insertElement("reply", new TweetElement(msg));
+      _this.ENV.timeLineUI.addNewTweet("home", new TweetElement(msg));
+      _this.ENV.timeLineUI.addNewTweet("reply", new TweetElement(msg));
     });
 
     this.socket.on("dm", function(msg: any) { 
-      _this.ENV.tlStore.insertElement("dm", new TweetElement(msg));
-    });
-
-    this.socket.on("searchData", function(msg: any) {
-      _this.ENV.loadingController.stopLoading();
-      _this.ENV.uicontroller.showSearchResult(msg);
-    });
-
-    this.socket.on("userInfo", function(msg: any) {
-      if (_this.ENV.loading) {
-        _this.ENV.loadingController.stopLoading();
-      }
-
-      _this.ENV.dialog.showUserPage(msg);
-    });
-
-    this.socket.on("closeCoverWithLogo", function (msg: any) {
-      _this.ENV.screenCover.closeCoverWithLogo();
+      _this.ENV.timeLineUI.addNewTweet("dm", new TweetElement(msg));
     });
   }
 

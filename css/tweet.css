@@ -1,0 +1,29 @@
+div.userInfo {
+  height: 20px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+div.userIcon {
+  border-radius: 4px;
+
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px; 
+}
+
+img.userIcon {
+}
+
+div.userName {
+  width: 75%;
+  min-height: 10px;
+  /*border-bottom: 1px solid #390100;*/
+  border-bottom: 1px solid #0b5e90;
+}
+
+div.tweetText {
+  min-height: 60px;
+  padding-left: 23%;
+  word-wrap: break-word;
+}

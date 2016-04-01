@@ -1,11 +1,11 @@
-/// <reference path="lib/jquery.d.ts" />
+/// <reference path="../lib/jquery.d.ts" />
 
 /*
   The MIT License
-  Copyright (C) 2015 alphaKAI
+  Copyright (C) 2015-2016 alphaKAI
 */
 
-import {Environments} from "./environments";
+import {Environments} from "../environments";
 
 export class TwitterController {
   private ENV: Environments;
@@ -18,7 +18,7 @@ export class TwitterController {
   registerEventHandler(): void {
     var _this = this;
     
-    $("#tweetButton").on("click", function() {
+    $(".tweetButton").on("click", function() {
       if ($("#textInputArea").val().length > 0) {
 
         if (_this.ENV.in_reply_to_status_id != null) {
@@ -35,6 +35,7 @@ export class TwitterController {
 
   update(text: string, in_reply_status_id: string = null): void {
     var parameters: { [key: string]: string } = {};
+
     parameters["status"] = text;
 
     if (in_reply_status_id != null) {

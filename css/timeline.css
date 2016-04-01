@@ -1,0 +1,76 @@
+div.TLColumns {
+  height: 100%;
+  /*background: #550200;*/
+  background: #ffffff;
+  overflow-x: scroll;
+
+  display: -webkit-flex;
+  display:flex;
+
+  -webkit-flex-wrap: nowrap;
+  flex-wrap:         nowrap;
+
+  -webkit-flex-shrink: 1;
+  flex-shrink: 1;
+}
+
+
+div.TLColumn {
+  width: 300px;
+  margin-left: 5px;
+  height: 100%;
+}
+
+div.TLColumnLast {
+  margin-right: 5px;
+}
+
+div.TLTitle {
+  /*color: #A73835;*/
+  color: #0b5e90;
+  height: 20px;
+  /*border-bottom: 1px #390100 solid;*/
+  border-bottom: 1px #0b5e90 solid;
+}
+
+div.TLElements {
+  /*color: #390100;*/
+  color: #0b5e90;
+  height: 95%;
+
+  overflow-y: scroll;
+}
+
+div.TLElement {
+  width: 300px;
+  min-height: 100px;
+  height: auto;
+
+  margin-bottom: 1px;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+div.TLElementSelected {
+  /*background-color: #A73835;*/
+  background-color: #189cb8;
+}
+
+div.TLElementDefault {
+  /*background-color: #7D1613;*/
+  background-color: #86d2dd;
+}
+
+div.TLElementActionButtons {
+  height: 40px;
+  background-color: #370100;
+  display: none;
+  
+  flex-wrap: row nowrap;
+  justify-content: flex-end;
+}
+
+button.TLElementActionButton {
+  background-color: #7D1613;
+  border: 3px solid #370100;
+}

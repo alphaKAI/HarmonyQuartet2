@@ -1,0 +1,15 @@
+div.displays {
+  height: 100%;
+  width: 100%;
+}
+
+div.display {
+  height: 100%;
+  width: 100%;
+
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+}

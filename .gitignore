@@ -1,6 +1,5 @@
 .DS_Store
-setting.json
-setting.json_
+setting.json*
 applicationUser.js
 app.js
 gb
@@ -17,3 +16,6 @@ HarmonyQuartet2.sln
 bin
 obj
 .idea
+oldUIs
+*.*.sw*
+.*.*.sw*

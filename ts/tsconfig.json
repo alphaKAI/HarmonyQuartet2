@@ -1,63 +1,11 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "noImplicitAny": false,
-    "removeComments": false,
-    "noLib": false,
-    "preserveConstEnums": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "outDir": "../js"
-  },
-  "formatCodeOptions": {
-    "indentSize": 2,
-    "tabSize": 2,
-    "newLineCharacter": "\n",
-    "convertTabsToSpaces": true,
-    "insertSpaceAfterCommaDelimiter": true,
-    "insertSpaceAfterSemicolonInForStatements": true,
-    "insertSpaceBeforeAndAfterBinaryOperators": true,
-    "insertSpaceAfterKeywordsInControlFlowStatements": true,
-    "insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
-    "insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
-    "placeOpenBraceOnNewLineForFunctions": true,
-    "placeOpenBraceOnNewLineForControlBlocks": true
-  },
-  "compileOnSave": true,
-  "filesGlob": [
-    "./**/*.ts"
-  ],
-  "files": [
-    "./environments.ts",
-    "./gulp/node_modules/gulp-tsd/node_modules/tsd/node_modules/definition-header/dist/index.d.ts",
-    "./gulp/node_modules/gulp-typescript/node_modules/typescript/lib/lib.core.d.ts",
-    "./gulp/node_modules/gulp-typescript/node_modules/typescript/lib/lib.core.es6.d.ts",
-    "./gulp/node_modules/gulp-typescript/node_modules/typescript/lib/lib.d.ts",
-    "./gulp/node_modules/gulp-typescript/node_modules/typescript/lib/lib.dom.d.ts",
-    "./gulp/node_modules/gulp-typescript/node_modules/typescript/lib/lib.es6.d.ts",
-    "./gulp/node_modules/gulp-typescript/node_modules/typescript/lib/lib.scriptHost.d.ts",
-    "./gulp/node_modules/gulp-typescript/node_modules/typescript/lib/lib.webworker.d.ts",
-    "./gulp/node_modules/gulp-typescript/node_modules/typescript/lib/typescript.d.ts",
-    "./gulp/node_modules/gulp-typescript/node_modules/typescript/lib/typescriptServices.d.ts",
-    "./gulp/node_modules/typescript/lib/lib.core.d.ts",
-    "./gulp/node_modules/typescript/lib/lib.core.es6.d.ts",
-    "./gulp/node_modules/typescript/lib/lib.d.ts",
-    "./gulp/node_modules/typescript/lib/lib.dom.d.ts",
-    "./gulp/node_modules/typescript/lib/lib.es6.d.ts",
-    "./gulp/node_modules/typescript/lib/lib.scriptHost.d.ts",
-    "./gulp/node_modules/typescript/lib/lib.webworker.d.ts",
-    "./gulp/node_modules/typescript/lib/typescript.d.ts",
-    "./gulp/node_modules/typescript/lib/typescriptServices.d.ts",
-    "./lib/jquery.d.ts",
-    "./lib/node.d.ts",
-    "./lib/semantic-ui.d.ts",
-    "./lib/socket.io.d.ts",
-    "./main.ts",
-    "./socketController.ts",
-    "./tlController.ts",
-    "./tweetElement.ts",
-    "./twitterController.ts",
-    "./uiController.ts",
-    "./dialog.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "noImplicitAny": false,
+        "sourceMap": false
+    },
+    "exclude": [
+        "node_modules"
+    ]
 }
